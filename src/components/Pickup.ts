@@ -83,7 +83,7 @@ export default class Pickup {
       throw new Error("Pickup instance is not valid");
     }
 
-    const result = internal_omp.Actor.Destroy(this.ptr);
+    const result = internal_omp.Pickup.Destroy(this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;

@@ -99,7 +99,7 @@ export default class Vehicle {
       throw new Error("Vehicle instance is not valid");
     }
 
-    const result = internal_omp.Actor.Destroy(this.ptr);
+    const result = internal_omp.Vehicle.Destroy(this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;

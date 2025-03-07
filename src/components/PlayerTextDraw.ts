@@ -74,7 +74,7 @@ export default class PlayerTextDraw {
       throw new Error("PlayerTextDraw instance is not valid");
     }
 
-    const result = internal_omp.Actor.Destroy(this.ptr);
+    const result = internal_omp.PlayerTextDraw.Destroy(this.player, this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;

@@ -95,7 +95,7 @@ export default class ObjectMp {
       throw new Error("Object instance is not valid");
     }
 
-    const result = internal_omp.Actor.Destroy(this.ptr);
+    const result = internal_omp.Object.Destroy(this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;

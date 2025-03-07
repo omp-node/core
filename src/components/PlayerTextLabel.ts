@@ -109,11 +109,11 @@ export default class PlayerTextLabel {
    * @throws Will throw an error if the playerTextLabel retrieval fails
    */
   destroy(): void {
-    if (!this.ptr) {
+    if (!this.ptr || !this.player) {
       throw new Error("PlayerTextLabel instance is not valid");
     }
 
-    const result = internal_omp.PlayerTextLabel.Destroy(this.ptr);
+    const result = internal_omp.PlayerTextLabel.Destroy(this.player, this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;

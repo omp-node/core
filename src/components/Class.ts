@@ -110,7 +110,7 @@ export default class Class {
       throw new Error("Class instance is not valid");
     }
 
-    const result = internal_omp.Actor.Destroy(this.ptr);
+    const result = internal_omp.Class.Destroy(this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;

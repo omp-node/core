@@ -81,7 +81,7 @@ export default class Menu {
       throw new Error("Menu instance is not valid");
     }
 
-    const result = internal_omp.Actor.Destroy(this.ptr);
+    const result = internal_omp.Menu.Destroy(this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;

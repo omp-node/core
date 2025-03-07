@@ -105,11 +105,11 @@ export default class PlayerObject {
    * @throws Will throw an error if the playerObject retrieval fails
    */
   destroy(): void {
-    if (!this.ptr) {
+    if (!this.ptr || !this.player) {
       throw new Error("PlayerObject instance is not valid");
     }
 
-    const result = internal_omp.Actor.Destroy(this.ptr);
+    const result = internal_omp.PlayerObject.Destroy(this.player, this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;

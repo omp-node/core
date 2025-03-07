@@ -64,7 +64,7 @@ export default class GangZone {
       throw new Error("GangZone instance is not valid");
     }
 
-    const result = internal_omp.Actor.Destroy(this.ptr);
+    const result = internal_omp.GangZone.Destroy(this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;
