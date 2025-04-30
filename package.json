@@ -1,9 +1,9 @@
 {
-  "name": "@open.mp/node",
+  "name": "@omp-node/core",
   "version": "0.2.8",
-  "description": "open.mp nodejs package. contains constants, type definitions, and initializers",
+  "description": "open.mp core nodejs package. contains constants, type definitions, and initializers",
   "scripts": {
-    "build": "rollup -c rollup.config.mjs --environment TARGET:@open.mp/node"
+    "build": "rollup -c rollup.config.mjs --environment TARGET:@omp-node/core"
   },
   "keywords": [
     "omp",
@@ -41,11 +41,11 @@
     "rollup-plugin-typescript-paths": "^1.5.0",
     "typescript": "^5.4.5"
   },
-  "repository": "https://github.com/omp-node/node",
-  "homepage": "https://github.com/omp-node/node",
+  "repository": "https://github.com/omp-node/core",
+  "homepage": "https://github.com/omp-node/core",
   "author": "Amyr (iAmir) Ahmady",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/omp-node/node/issues"
+    "url": "https://github.com/omp-node/core/issues"
   }
 }
