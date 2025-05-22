@@ -267,7 +267,7 @@ export const initializeEvents = () => {
         "playerGiveDamageActor"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, actor_, amount, weapon, part);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -305,7 +305,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("actorStreamIn");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(actor_, forPlayer_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -342,7 +342,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("actorStreamOut");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(actor_, forPlayer_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -376,7 +376,7 @@ export const initializeEvents = () => {
       "playerEnterCheckpoint"
     );
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -410,7 +410,7 @@ export const initializeEvents = () => {
       "playerLeaveCheckpoint"
     );
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -444,7 +444,7 @@ export const initializeEvents = () => {
       "playerEnterRaceCheckpoint"
     );
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -478,7 +478,7 @@ export const initializeEvents = () => {
       "playerLeaveRaceCheckpoint"
     );
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -511,7 +511,7 @@ export const initializeEvents = () => {
     const listeners =
       __internal_omp.eventEmitter.listeners("playerRequestClass");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, classId);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -537,7 +537,7 @@ export const initializeEvents = () => {
   eventEmitter_raw.on("consoleText", async (badRet, command, parameters) => {
     const listeners = __internal_omp.eventEmitter.listeners("consoleText");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(command, parameters);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -566,7 +566,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("rconLoginAttempt");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(address, password, success);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -593,7 +593,7 @@ export const initializeEvents = () => {
   eventEmitter_raw.on("tick", async (badRet, elapsed) => {
     const listeners = __internal_omp.eventEmitter.listeners("tick");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(elapsed);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -629,7 +629,7 @@ export const initializeEvents = () => {
         "playerFinishedDownloading"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, vw);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -666,7 +666,7 @@ export const initializeEvents = () => {
         "playerRequestDownload"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, type, checksum);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -700,7 +700,7 @@ export const initializeEvents = () => {
         );
       const listeners = __internal_omp.eventEmitter.listeners("dialogResponse");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(
           player_,
           dialogId,
@@ -747,7 +747,7 @@ export const initializeEvents = () => {
       "playerEnterGangZone"
     );
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, zone_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -787,7 +787,7 @@ export const initializeEvents = () => {
       "playerLeaveGangZone"
     );
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, zone_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -827,7 +827,7 @@ export const initializeEvents = () => {
       "playerClickGangZone"
     );
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, zone_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -861,7 +861,7 @@ export const initializeEvents = () => {
       "playerSelectedMenuRow"
     );
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, row);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -892,7 +892,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("playerExitedMenu");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -923,7 +923,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("objectMove");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(object_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -959,7 +959,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("playerObjectMove");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, object_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -1011,7 +1011,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("playerEditObject");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(
           player_,
           object_,
@@ -1075,7 +1075,7 @@ export const initializeEvents = () => {
         "playerEditPlayerObject"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(
           player_,
           object_,
@@ -1138,7 +1138,7 @@ export const initializeEvents = () => {
         "playerEditAttachedObject"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(
           player_,
           saved,
@@ -1195,7 +1195,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("playerSelectObject");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, object_, model, x, y, z);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -1238,7 +1238,7 @@ export const initializeEvents = () => {
         "playerSelectPlayerObject"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, object_, model, x, y, z);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -1278,7 +1278,7 @@ export const initializeEvents = () => {
     const listeners =
       __internal_omp.eventEmitter.listeners("playerPickUpPickup");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, pickup_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -1314,7 +1314,7 @@ export const initializeEvents = () => {
         "playerCancelTextDrawSelection"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -1351,7 +1351,7 @@ export const initializeEvents = () => {
         "playerCancelPlayerTextDrawSelection"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -1394,7 +1394,7 @@ export const initializeEvents = () => {
         "playerClickTextDraw"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, textdraw_);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -1437,7 +1437,7 @@ export const initializeEvents = () => {
         "playerClickPlayerTextDraw"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, textdraw_);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -1483,7 +1483,7 @@ export const initializeEvents = () => {
 
     const listeners = __internal_omp.eventEmitter.listeners("playerConnect");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -1514,7 +1514,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("playerSpawn");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -1547,7 +1547,7 @@ export const initializeEvents = () => {
     const listeners =
       __internal_omp.eventEmitter.listeners("playerCommandText");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, command);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -1583,7 +1583,7 @@ export const initializeEvents = () => {
         "playerKeyStateChange"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, newKeys, oldKeys);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -1624,7 +1624,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("incomingConnection");
       let eventResult = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         eventResult = await listener(player_, ipAddress, port);
         if (typeof eventResult === "boolean" || typeof eventResult === "number") {
           switch (badRet) {
@@ -1656,7 +1656,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("playerDisconnect");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, reason);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -1690,7 +1690,7 @@ export const initializeEvents = () => {
     const listeners =
       __internal_omp.eventEmitter.listeners("playerRequestSpawn");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -1727,7 +1727,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("playerStreamIn");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, forPlayer_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -1764,7 +1764,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("playerStreamOut");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, forPlayer_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -1795,7 +1795,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("playerText");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, text);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -1830,7 +1830,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("playerShotMissed");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, weapon, x, y, z);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -1872,7 +1872,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("playerShotPlayer");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, target_, weapon, x, y, z);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -1914,7 +1914,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("playerShotVehicle");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, target_, weapon, x, y, z);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -1956,7 +1956,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("playerShotObject");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, target_, weapon, x, y, z);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -1999,7 +1999,7 @@ export const initializeEvents = () => {
         "playerShotPlayerObject"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, target_, weapon, x, y, z);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2034,7 +2034,7 @@ export const initializeEvents = () => {
 
     const listeners = __internal_omp.eventEmitter.listeners("playerDeath");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, killer_, reason);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -2072,7 +2072,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("playerTakeDamage");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, from_, amount, weapon, bodypart);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2113,7 +2113,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("playerGiveDamage");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, to_, amount, weapon, bodypart);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2150,7 +2150,7 @@ export const initializeEvents = () => {
         "playerInteriorChange"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, newInterior, oldInterior);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2186,7 +2186,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("playerStateChange");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, newState, oldState);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2218,7 +2218,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("playerClickMap");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, x, y, z);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -2259,7 +2259,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("playerClickPlayer");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, clicked_, source);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2296,7 +2296,7 @@ export const initializeEvents = () => {
         "clientCheckResponse"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, actionType, address, result_);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2328,7 +2328,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("playerUpdate");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -2365,7 +2365,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("vehicleStreamIn");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(vehicle_, player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -2402,7 +2402,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("vehicleStreamOut");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(vehicle_, player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -2438,7 +2438,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("vehicleDeath");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(vehicle_, player_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -2479,7 +2479,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("playerEnterVehicle");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, vehicle_, passenger);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2519,7 +2519,7 @@ export const initializeEvents = () => {
     const listeners =
       __internal_omp.eventEmitter.listeners("playerExitVehicle");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, vehicle_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -2561,7 +2561,7 @@ export const initializeEvents = () => {
         "vehicleDamageStatusUpdate"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(vehicle_, player_);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2603,7 +2603,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("vehiclePaintJob");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, vehicle_, paintJob);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2642,7 +2642,7 @@ export const initializeEvents = () => {
         );
       const listeners = __internal_omp.eventEmitter.listeners("vehicleMod");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, vehicle_, component);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2682,7 +2682,7 @@ export const initializeEvents = () => {
         );
       const listeners = __internal_omp.eventEmitter.listeners("vehicleRespray");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, vehicle_, color1, color2);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2718,7 +2718,7 @@ export const initializeEvents = () => {
       const listeners =
         __internal_omp.eventEmitter.listeners("enterExitModShop");
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, enterexit, interiorId);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {
@@ -2750,7 +2750,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("vehicleSpawn");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(vehicle_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -2803,7 +2803,7 @@ export const initializeEvents = () => {
         "unoccupiedVehicleUpdate"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(
           vehicle_,
           player_,
@@ -2850,7 +2850,7 @@ export const initializeEvents = () => {
       );
     const listeners = __internal_omp.eventEmitter.listeners("trailerUpdate");
     let result = true;
-    for await (const listener of listeners) {
+    for (const listener of listeners) {
       result = await listener(player_, trailer_);
       if (typeof result === "boolean" || typeof result === "number") {
         switch (badRet) {
@@ -2892,7 +2892,7 @@ export const initializeEvents = () => {
         "vehicleSirenStateChange"
       );
       let result = true;
-      for await (const listener of listeners) {
+      for (const listener of listeners) {
         result = await listener(player_, vehicle_, sirenState);
         if (typeof result === "boolean" || typeof result === "number") {
           switch (badRet) {

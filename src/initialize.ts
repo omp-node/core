@@ -147,7 +147,7 @@ async function onResourceStart(_: number, error: boolean) {
 
   const eventEmitter = internal_omp.eventEmitter;
   const listeners = eventEmitter.listeners("resourceStart");
-  for await (const listener of listeners) {
+  for (const listener of listeners) {
     await listener(error);
   }
 }
