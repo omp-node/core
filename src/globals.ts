@@ -32,6 +32,7 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   on(eventName: "resourceStart", callback: (error: boolean) => any): void;
+
   /**
    * Adds a new event listener to playerGiveDamageActor
    *
@@ -50,6 +51,7 @@ interface IOMP {
       part: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to actorStreamIn
    *
@@ -62,6 +64,7 @@ interface IOMP {
     eventName: "actorStreamIn",
     callback: (actor: Actor, forPlayer: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to actorStreamOut
    *
@@ -74,6 +77,7 @@ interface IOMP {
     eventName: "actorStreamOut",
     callback: (actor: Actor, forPlayer: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEnterCheckpoint
    *
@@ -86,6 +90,7 @@ interface IOMP {
     eventName: "playerEnterCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerLeaveCheckpoint
    *
@@ -98,6 +103,7 @@ interface IOMP {
     eventName: "playerLeaveCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEnterRaceCheckpoint
    *
@@ -110,6 +116,7 @@ interface IOMP {
     eventName: "playerEnterRaceCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerLeaveRaceCheckpoint
    *
@@ -122,6 +129,7 @@ interface IOMP {
     eventName: "playerLeaveRaceCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerRequestClass
    *
@@ -134,6 +142,7 @@ interface IOMP {
     eventName: "playerRequestClass",
     callback: (player: Player, classId: number) => any
   ): void;
+
   /**
    * Adds a new event listener to consoleText
    *
@@ -146,6 +155,7 @@ interface IOMP {
     eventName: "consoleText",
     callback: (command: string, parameters: string) => any
   ): void;
+
   /**
    * Adds a new event listener to rconLoginAttempt
    *
@@ -158,6 +168,7 @@ interface IOMP {
     eventName: "rconLoginAttempt",
     callback: (address: string, password: string, success: boolean) => any
   ): void;
+
   /**
    * Adds a new event listener to tick
    *
@@ -167,6 +178,7 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   on(eventName: "tick", callback: (elapsed: number) => any): void;
+
   /**
    * Adds a new event listener to playerFinishedDownloading
    *
@@ -179,6 +191,7 @@ interface IOMP {
     eventName: "playerFinishedDownloading",
     callback: (player: Player, vw: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerRequestDownload
    *
@@ -191,6 +204,7 @@ interface IOMP {
     eventName: "playerRequestDownload",
     callback: (player: Player, type: number, checksum: number) => any
   ): void;
+
   /**
    * Adds a new event listener to dialogResponse
    *
@@ -209,6 +223,7 @@ interface IOMP {
       inputText: string
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEnterGangZone
    *
@@ -221,6 +236,7 @@ interface IOMP {
     eventName: "playerEnterGangZone",
     callback: (player: Player, zone: GangZone) => any
   ): void;
+
   /**
    * Adds a new event listener to playerLeaveGangZone
    *
@@ -233,6 +249,7 @@ interface IOMP {
     eventName: "playerLeaveGangZone",
     callback: (player: Player, zone: GangZone) => any
   ): void;
+
   /**
    * Adds a new event listener to playerClickGangZone
    *
@@ -245,6 +262,7 @@ interface IOMP {
     eventName: "playerClickGangZone",
     callback: (player: Player, zone: GangZone) => any
   ): void;
+
   /**
    * Adds a new event listener to playerSelectedMenuRow
    *
@@ -257,6 +275,7 @@ interface IOMP {
     eventName: "playerSelectedMenuRow",
     callback: (player: Player, row: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerExitedMenu
    *
@@ -266,6 +285,7 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   on(eventName: "playerExitedMenu", callback: (player: Player) => any): void;
+
   /**
    * Adds a new event listener to objectMove
    *
@@ -275,6 +295,7 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   on(eventName: "objectMove", callback: (object: ObjectMp) => any): void;
+
   /**
    * Adds a new event listener to playerObjectMove
    *
@@ -287,6 +308,7 @@ interface IOMP {
     eventName: "playerObjectMove",
     callback: (player: Player, object: ObjectMp) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEditObject
    *
@@ -309,6 +331,7 @@ interface IOMP {
       rotationZ: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEditPlayerObject
    *
@@ -331,6 +354,7 @@ interface IOMP {
       rotationZ: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEditAttachedObject
    *
@@ -358,6 +382,7 @@ interface IOMP {
       scaleZ: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerSelectObject
    *
@@ -377,6 +402,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerSelectPlayerObject
    *
@@ -396,6 +422,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerPickUpPickup
    *
@@ -408,6 +435,7 @@ interface IOMP {
     eventName: "playerPickUpPickup",
     callback: (player: Player, pickup: Pickup) => any
   ): void;
+
   /**
    * Adds a new event listener to playerCancelTextDrawSelection
    *
@@ -420,6 +448,7 @@ interface IOMP {
     eventName: "playerCancelTextDrawSelection",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerCancelPlayerTextDrawSelection
    *
@@ -432,6 +461,7 @@ interface IOMP {
     eventName: "playerCancelPlayerTextDrawSelection",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerClickTextDraw
    *
@@ -444,6 +474,7 @@ interface IOMP {
     eventName: "playerClickTextDraw",
     callback: (player: Player, textdraw: TextDraw) => any
   ): void;
+
   /**
    * Adds a new event listener to playerClickPlayerTextDraw
    *
@@ -456,6 +487,7 @@ interface IOMP {
     eventName: "playerClickPlayerTextDraw",
     callback: (player: Player, textdraw: TextDraw) => any
   ): void;
+
   /**
    * Adds a new event listener to playerConnect
    *
@@ -465,6 +497,7 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   on(eventName: "playerConnect", callback: (player: Player) => any): void;
+
   /**
    * Adds a new event listener to playerSpawn
    *
@@ -474,6 +507,7 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   on(eventName: "playerSpawn", callback: (player: Player) => any): void;
+
   /**
    * Adds a new event listener to playerCommandText
    *
@@ -486,6 +520,7 @@ interface IOMP {
     eventName: "playerCommandText",
     callback: (player: Player, command: string) => any
   ): void;
+
   /**
    * Adds a new event listener to playerKeyStateChange
    *
@@ -498,6 +533,7 @@ interface IOMP {
     eventName: "playerKeyStateChange",
     callback: (player: Player, newKeys: number, oldKeys: number) => any
   ): void;
+
   /**
    * Adds a new event listener to incomingConnection
    *
@@ -510,6 +546,7 @@ interface IOMP {
     eventName: "incomingConnection",
     callback: (player: Player, ipAddress: string, port: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerDisconnect
    *
@@ -522,6 +559,7 @@ interface IOMP {
     eventName: "playerDisconnect",
     callback: (player: Player, reason: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerRequestSpawn
    *
@@ -531,6 +569,7 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   on(eventName: "playerRequestSpawn", callback: (player: Player) => any): void;
+
   /**
    * Adds a new event listener to playerStreamIn
    *
@@ -543,6 +582,7 @@ interface IOMP {
     eventName: "playerStreamIn",
     callback: (player: Player, forPlayer: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerStreamOut
    *
@@ -555,6 +595,7 @@ interface IOMP {
     eventName: "playerStreamOut",
     callback: (player: Player, forPlayer: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerText
    *
@@ -567,6 +608,7 @@ interface IOMP {
     eventName: "playerText",
     callback: (player: Player, text: string) => any
   ): void;
+
   /**
    * Adds a new event listener to playerShotMissed
    *
@@ -585,6 +627,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerShotPlayer
    *
@@ -604,6 +647,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerShotVehicle
    *
@@ -623,6 +667,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerShotObject
    *
@@ -642,6 +687,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerShotPlayerObject
    *
@@ -661,6 +707,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerDeath
    *
@@ -673,6 +720,7 @@ interface IOMP {
     eventName: "playerDeath",
     callback: (player: Player, killer: Player | undefined, reason: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerTakeDamage
    *
@@ -691,6 +739,7 @@ interface IOMP {
       bodypart: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerGiveDamage
    *
@@ -709,6 +758,7 @@ interface IOMP {
       bodypart: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerInteriorChange
    *
@@ -721,6 +771,7 @@ interface IOMP {
     eventName: "playerInteriorChange",
     callback: (player: Player, newInterior: number, oldInterior: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerStateChange
    *
@@ -733,6 +784,7 @@ interface IOMP {
     eventName: "playerStateChange",
     callback: (player: Player, newState: number, oldState: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerClickMap
    *
@@ -745,6 +797,7 @@ interface IOMP {
     eventName: "playerClickMap",
     callback: (player: Player, x: number, y: number, z: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerClickPlayer
    *
@@ -757,6 +810,7 @@ interface IOMP {
     eventName: "playerClickPlayer",
     callback: (player: Player, clicked: Player, source: number) => any
   ): void;
+
   /**
    * Adds a new event listener to clientCheckResponse
    *
@@ -774,6 +828,7 @@ interface IOMP {
       result: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerUpdate
    *
@@ -783,6 +838,7 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   on(eventName: "playerUpdate", callback: (player: Player) => any): void;
+
   /**
    * Adds a new event listener to vehicleStreamIn
    *
@@ -795,6 +851,7 @@ interface IOMP {
     eventName: "vehicleStreamIn",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleStreamOut
    *
@@ -807,6 +864,7 @@ interface IOMP {
     eventName: "vehicleStreamOut",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleDeath
    *
@@ -819,6 +877,7 @@ interface IOMP {
     eventName: "vehicleDeath",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEnterVehicle
    *
@@ -831,6 +890,7 @@ interface IOMP {
     eventName: "playerEnterVehicle",
     callback: (player: Player, vehicle: Vehicle, passenger: boolean) => any
   ): void;
+
   /**
    * Adds a new event listener to playerExitVehicle
    *
@@ -843,6 +903,7 @@ interface IOMP {
     eventName: "playerExitVehicle",
     callback: (player: Player, vehicle: Vehicle) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleDamageStatusUpdate
    *
@@ -855,6 +916,7 @@ interface IOMP {
     eventName: "vehicleDamageStatusUpdate",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to vehiclePaintJob
    *
@@ -867,6 +929,7 @@ interface IOMP {
     eventName: "vehiclePaintJob",
     callback: (player: Player, vehicle: Vehicle, paintJob: number) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleMod
    *
@@ -879,6 +942,7 @@ interface IOMP {
     eventName: "vehicleMod",
     callback: (player: Player, vehicle: Vehicle, component: number) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleRespray
    *
@@ -896,6 +960,7 @@ interface IOMP {
       color2: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to enterExitModShop
    *
@@ -908,6 +973,7 @@ interface IOMP {
     eventName: "enterExitModShop",
     callback: (player: Player, enterexit: number, interiorId: number) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleSpawn
    *
@@ -917,6 +983,7 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   on(eventName: "vehicleSpawn", callback: (vehicle: Vehicle) => any): void;
+
   /**
    * Adds a new event listener to unoccupiedVehicleUpdate
    *
@@ -939,6 +1006,7 @@ interface IOMP {
       velocityZ: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to trailerUpdate
    *
@@ -951,6 +1019,7 @@ interface IOMP {
     eventName: "trailerUpdate",
     callback: (player: Player, trailer: Vehicle) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleSirenStateChange
    *
@@ -963,6 +1032,7 @@ interface IOMP {
     eventName: "vehicleSirenStateChange",
     callback: (player: Player, vehicle: Vehicle, sirenState: number) => any
   ): void;
+
   /**
    * Adds a new event listener to resourceStart
    *
@@ -975,6 +1045,7 @@ interface IOMP {
     eventName: "resourceStart",
     callback: (error: boolean) => any
   ): void;
+
   /**
    * Adds a new event listener to playerGiveDamageActor
    *
@@ -993,6 +1064,7 @@ interface IOMP {
       part: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to actorStreamIn
    *
@@ -1005,6 +1077,7 @@ interface IOMP {
     eventName: "actorStreamIn",
     callback: (actor: Actor, forPlayer: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to actorStreamOut
    *
@@ -1017,6 +1090,7 @@ interface IOMP {
     eventName: "actorStreamOut",
     callback: (actor: Actor, forPlayer: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEnterCheckpoint
    *
@@ -1029,6 +1103,7 @@ interface IOMP {
     eventName: "playerEnterCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerLeaveCheckpoint
    *
@@ -1041,6 +1116,7 @@ interface IOMP {
     eventName: "playerLeaveCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEnterRaceCheckpoint
    *
@@ -1053,6 +1129,7 @@ interface IOMP {
     eventName: "playerEnterRaceCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerLeaveRaceCheckpoint
    *
@@ -1065,6 +1142,7 @@ interface IOMP {
     eventName: "playerLeaveRaceCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerRequestClass
    *
@@ -1077,6 +1155,7 @@ interface IOMP {
     eventName: "playerRequestClass",
     callback: (player: Player, classId: number) => any
   ): void;
+
   /**
    * Adds a new event listener to consoleText
    *
@@ -1089,6 +1168,7 @@ interface IOMP {
     eventName: "consoleText",
     callback: (command: string, parameters: string) => any
   ): void;
+
   /**
    * Adds a new event listener to rconLoginAttempt
    *
@@ -1101,6 +1181,7 @@ interface IOMP {
     eventName: "rconLoginAttempt",
     callback: (address: string, password: string, success: boolean) => any
   ): void;
+
   /**
    * Adds a new event listener to tick
    *
@@ -1110,6 +1191,7 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   addListener(eventName: "tick", callback: (elapsed: number) => any): void;
+
   /**
    * Adds a new event listener to playerFinishedDownloading
    *
@@ -1122,6 +1204,7 @@ interface IOMP {
     eventName: "playerFinishedDownloading",
     callback: (player: Player, vw: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerRequestDownload
    *
@@ -1134,6 +1217,7 @@ interface IOMP {
     eventName: "playerRequestDownload",
     callback: (player: Player, type: number, checksum: number) => any
   ): void;
+
   /**
    * Adds a new event listener to dialogResponse
    *
@@ -1152,6 +1236,7 @@ interface IOMP {
       inputText: string
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEnterGangZone
    *
@@ -1164,6 +1249,7 @@ interface IOMP {
     eventName: "playerEnterGangZone",
     callback: (player: Player, zone: GangZone) => any
   ): void;
+
   /**
    * Adds a new event listener to playerLeaveGangZone
    *
@@ -1176,6 +1262,7 @@ interface IOMP {
     eventName: "playerLeaveGangZone",
     callback: (player: Player, zone: GangZone) => any
   ): void;
+
   /**
    * Adds a new event listener to playerClickGangZone
    *
@@ -1188,6 +1275,7 @@ interface IOMP {
     eventName: "playerClickGangZone",
     callback: (player: Player, zone: GangZone) => any
   ): void;
+
   /**
    * Adds a new event listener to playerSelectedMenuRow
    *
@@ -1200,6 +1288,7 @@ interface IOMP {
     eventName: "playerSelectedMenuRow",
     callback: (player: Player, row: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerExitedMenu
    *
@@ -1212,6 +1301,7 @@ interface IOMP {
     eventName: "playerExitedMenu",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to objectMove
    *
@@ -1224,6 +1314,7 @@ interface IOMP {
     eventName: "objectMove",
     callback: (object: ObjectMp) => any
   ): void;
+
   /**
    * Adds a new event listener to playerObjectMove
    *
@@ -1236,6 +1327,7 @@ interface IOMP {
     eventName: "playerObjectMove",
     callback: (player: Player, object: ObjectMp) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEditObject
    *
@@ -1258,6 +1350,7 @@ interface IOMP {
       rotationZ: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEditPlayerObject
    *
@@ -1280,6 +1373,7 @@ interface IOMP {
       rotationZ: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEditAttachedObject
    *
@@ -1307,6 +1401,7 @@ interface IOMP {
       scaleZ: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerSelectObject
    *
@@ -1326,6 +1421,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerSelectPlayerObject
    *
@@ -1345,6 +1441,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerPickUpPickup
    *
@@ -1357,6 +1454,7 @@ interface IOMP {
     eventName: "playerPickUpPickup",
     callback: (player: Player, pickup: Pickup) => any
   ): void;
+
   /**
    * Adds a new event listener to playerCancelTextDrawSelection
    *
@@ -1369,6 +1467,7 @@ interface IOMP {
     eventName: "playerCancelTextDrawSelection",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerCancelPlayerTextDrawSelection
    *
@@ -1381,6 +1480,7 @@ interface IOMP {
     eventName: "playerCancelPlayerTextDrawSelection",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerClickTextDraw
    *
@@ -1393,6 +1493,7 @@ interface IOMP {
     eventName: "playerClickTextDraw",
     callback: (player: Player, textdraw: TextDraw) => any
   ): void;
+
   /**
    * Adds a new event listener to playerClickPlayerTextDraw
    *
@@ -1405,6 +1506,7 @@ interface IOMP {
     eventName: "playerClickPlayerTextDraw",
     callback: (player: Player, textdraw: TextDraw) => any
   ): void;
+
   /**
    * Adds a new event listener to playerConnect
    *
@@ -1417,6 +1519,7 @@ interface IOMP {
     eventName: "playerConnect",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerSpawn
    *
@@ -1429,6 +1532,7 @@ interface IOMP {
     eventName: "playerSpawn",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerCommandText
    *
@@ -1441,6 +1545,7 @@ interface IOMP {
     eventName: "playerCommandText",
     callback: (player: Player, command: string) => any
   ): void;
+
   /**
    * Adds a new event listener to playerKeyStateChange
    *
@@ -1453,6 +1558,7 @@ interface IOMP {
     eventName: "playerKeyStateChange",
     callback: (player: Player, newKeys: number, oldKeys: number) => any
   ): void;
+
   /**
    * Adds a new event listener to incomingConnection
    *
@@ -1465,6 +1571,7 @@ interface IOMP {
     eventName: "incomingConnection",
     callback: (player: Player, ipAddress: string, port: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerDisconnect
    *
@@ -1477,6 +1584,7 @@ interface IOMP {
     eventName: "playerDisconnect",
     callback: (player: Player, reason: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerRequestSpawn
    *
@@ -1489,6 +1597,7 @@ interface IOMP {
     eventName: "playerRequestSpawn",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerStreamIn
    *
@@ -1501,6 +1610,7 @@ interface IOMP {
     eventName: "playerStreamIn",
     callback: (player: Player, forPlayer: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerStreamOut
    *
@@ -1513,6 +1623,7 @@ interface IOMP {
     eventName: "playerStreamOut",
     callback: (player: Player, forPlayer: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerText
    *
@@ -1525,6 +1636,7 @@ interface IOMP {
     eventName: "playerText",
     callback: (player: Player, text: string) => any
   ): void;
+
   /**
    * Adds a new event listener to playerShotMissed
    *
@@ -1543,6 +1655,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerShotPlayer
    *
@@ -1562,6 +1675,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerShotVehicle
    *
@@ -1581,6 +1695,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerShotObject
    *
@@ -1600,6 +1715,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerShotPlayerObject
    *
@@ -1619,6 +1735,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerDeath
    *
@@ -1631,6 +1748,7 @@ interface IOMP {
     eventName: "playerDeath",
     callback: (player: Player, killer: Player | undefined, reason: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerTakeDamage
    *
@@ -1649,6 +1767,7 @@ interface IOMP {
       bodypart: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerGiveDamage
    *
@@ -1667,6 +1786,7 @@ interface IOMP {
       bodypart: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerInteriorChange
    *
@@ -1679,6 +1799,7 @@ interface IOMP {
     eventName: "playerInteriorChange",
     callback: (player: Player, newInterior: number, oldInterior: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerStateChange
    *
@@ -1691,6 +1812,7 @@ interface IOMP {
     eventName: "playerStateChange",
     callback: (player: Player, newState: number, oldState: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerClickMap
    *
@@ -1703,6 +1825,7 @@ interface IOMP {
     eventName: "playerClickMap",
     callback: (player: Player, x: number, y: number, z: number) => any
   ): void;
+
   /**
    * Adds a new event listener to playerClickPlayer
    *
@@ -1715,6 +1838,7 @@ interface IOMP {
     eventName: "playerClickPlayer",
     callback: (player: Player, clicked: Player, source: number) => any
   ): void;
+
   /**
    * Adds a new event listener to clientCheckResponse
    *
@@ -1732,6 +1856,7 @@ interface IOMP {
       result: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to playerUpdate
    *
@@ -1744,6 +1869,7 @@ interface IOMP {
     eventName: "playerUpdate",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleStreamIn
    *
@@ -1756,6 +1882,7 @@ interface IOMP {
     eventName: "vehicleStreamIn",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleStreamOut
    *
@@ -1768,6 +1895,7 @@ interface IOMP {
     eventName: "vehicleStreamOut",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleDeath
    *
@@ -1780,6 +1908,7 @@ interface IOMP {
     eventName: "vehicleDeath",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to playerEnterVehicle
    *
@@ -1792,6 +1921,7 @@ interface IOMP {
     eventName: "playerEnterVehicle",
     callback: (player: Player, vehicle: Vehicle, passenger: boolean) => any
   ): void;
+
   /**
    * Adds a new event listener to playerExitVehicle
    *
@@ -1804,6 +1934,7 @@ interface IOMP {
     eventName: "playerExitVehicle",
     callback: (player: Player, vehicle: Vehicle) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleDamageStatusUpdate
    *
@@ -1816,6 +1947,7 @@ interface IOMP {
     eventName: "vehicleDamageStatusUpdate",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Adds a new event listener to vehiclePaintJob
    *
@@ -1828,6 +1960,7 @@ interface IOMP {
     eventName: "vehiclePaintJob",
     callback: (player: Player, vehicle: Vehicle, paintJob: number) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleMod
    *
@@ -1840,6 +1973,7 @@ interface IOMP {
     eventName: "vehicleMod",
     callback: (player: Player, vehicle: Vehicle, component: number) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleRespray
    *
@@ -1857,6 +1991,7 @@ interface IOMP {
       color2: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to enterExitModShop
    *
@@ -1869,6 +2004,7 @@ interface IOMP {
     eventName: "enterExitModShop",
     callback: (player: Player, enterexit: number, interiorId: number) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleSpawn
    *
@@ -1881,6 +2017,7 @@ interface IOMP {
     eventName: "vehicleSpawn",
     callback: (vehicle: Vehicle) => any
   ): void;
+
   /**
    * Adds a new event listener to unoccupiedVehicleUpdate
    *
@@ -1903,6 +2040,7 @@ interface IOMP {
       velocityZ: number
     ) => any
   ): void;
+
   /**
    * Adds a new event listener to trailerUpdate
    *
@@ -1915,6 +2053,7 @@ interface IOMP {
     eventName: "trailerUpdate",
     callback: (player: Player, trailer: Vehicle) => any
   ): void;
+
   /**
    * Adds a new event listener to vehicleSirenStateChange
    *
@@ -1927,6 +2066,7 @@ interface IOMP {
     eventName: "vehicleSirenStateChange",
     callback: (player: Player, vehicle: Vehicle, sirenState: number) => any
   ): void;
+
   /**
    * Removes a specific listener for resourceStart
    *
@@ -1944,6 +2084,7 @@ interface IOMP {
       part: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerGiveDamageActor
    *
@@ -1961,6 +2102,7 @@ interface IOMP {
       part: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for actorStreamIn
    *
@@ -1972,6 +2114,7 @@ interface IOMP {
     eventName: "actorStreamIn",
     callback: (actor: Actor, forPlayer: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for actorStreamOut
    *
@@ -1983,6 +2126,7 @@ interface IOMP {
     eventName: "actorStreamOut",
     callback: (actor: Actor, forPlayer: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerEnterCheckpoint
    *
@@ -1994,6 +2138,7 @@ interface IOMP {
     eventName: "playerEnterCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerLeaveCheckpoint
    *
@@ -2005,6 +2150,7 @@ interface IOMP {
     eventName: "playerLeaveCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerEnterRaceCheckpoint
    *
@@ -2016,6 +2162,7 @@ interface IOMP {
     eventName: "playerEnterRaceCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerLeaveRaceCheckpoint
    *
@@ -2027,6 +2174,7 @@ interface IOMP {
     eventName: "playerLeaveRaceCheckpoint",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerRequestClass
    *
@@ -2038,6 +2186,7 @@ interface IOMP {
     eventName: "playerRequestClass",
     callback: (player: Player, classId: number) => any
   ): void;
+
   /**
    * Removes a specific listener for consoleText
    *
@@ -2049,6 +2198,7 @@ interface IOMP {
     eventName: "consoleText",
     callback: (command: string, parameters: string) => any
   ): void;
+
   /**
    * Removes a specific listener for rconLoginAttempt
    *
@@ -2060,6 +2210,7 @@ interface IOMP {
     eventName: "rconLoginAttempt",
     callback: (address: string, password: string, success: boolean) => any
   ): void;
+
   /**
    * Removes a specific listener for tick
    *
@@ -2068,6 +2219,7 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   removeListener(eventName: "tick", callback: (elapsed: number) => any): void;
+
   /**
    * Removes a specific listener for playerFinishedDownloading
    *
@@ -2079,6 +2231,7 @@ interface IOMP {
     eventName: "playerFinishedDownloading",
     callback: (player: Player, vw: number) => any
   ): void;
+
   /**
    * Removes a specific listener for playerRequestDownload
    *
@@ -2090,6 +2243,7 @@ interface IOMP {
     eventName: "playerRequestDownload",
     callback: (player: Player, type: number, checksum: number) => any
   ): void;
+
   /**
    * Removes a specific listener for dialogResponse
    *
@@ -2107,6 +2261,7 @@ interface IOMP {
       inputText: string
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerEnterGangZone
    *
@@ -2118,6 +2273,7 @@ interface IOMP {
     eventName: "playerEnterGangZone",
     callback: (player: Player, zone: GangZone) => any
   ): void;
+
   /**
    * Removes a specific listener for playerLeaveGangZone
    *
@@ -2129,6 +2285,7 @@ interface IOMP {
     eventName: "playerLeaveGangZone",
     callback: (player: Player, zone: GangZone) => any
   ): void;
+
   /**
    * Removes a specific listener for playerClickGangZone
    *
@@ -2140,6 +2297,7 @@ interface IOMP {
     eventName: "playerClickGangZone",
     callback: (player: Player, zone: GangZone) => any
   ): void;
+
   /**
    * Removes a specific listener for playerSelectedMenuRow
    *
@@ -2151,6 +2309,7 @@ interface IOMP {
     eventName: "playerSelectedMenuRow",
     callback: (player: Player, row: number) => any
   ): void;
+
   /**
    * Removes a specific listener for playerExitedMenu
    *
@@ -2162,6 +2321,7 @@ interface IOMP {
     eventName: "playerExitedMenu",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for objectMove
    *
@@ -2173,6 +2333,7 @@ interface IOMP {
     eventName: "objectMove",
     callback: (object: ObjectMp) => any
   ): void;
+
   /**
    * Removes a specific listener for playerObjectMove
    *
@@ -2184,6 +2345,7 @@ interface IOMP {
     eventName: "playerObjectMove",
     callback: (player: Player, object: ObjectMp) => any
   ): void;
+
   /**
    * Removes a specific listener for playerEditObject
    *
@@ -2205,6 +2367,7 @@ interface IOMP {
       rotationZ: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerEditPlayerObject
    *
@@ -2226,6 +2389,7 @@ interface IOMP {
       rotationZ: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerEditAttachedObject
    *
@@ -2252,6 +2416,7 @@ interface IOMP {
       scaleZ: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerSelectObject
    *
@@ -2270,6 +2435,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerSelectPlayerObject
    *
@@ -2288,6 +2454,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerPickUpPickup
    *
@@ -2299,6 +2466,7 @@ interface IOMP {
     eventName: "playerPickUpPickup",
     callback: (player: Player, pickup: Pickup) => any
   ): void;
+
   /**
    * Removes a specific listener for playerCancelTextDrawSelection
    *
@@ -2310,6 +2478,7 @@ interface IOMP {
     eventName: "playerCancelTextDrawSelection",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerCancelPlayerTextDrawSelection
    *
@@ -2321,6 +2490,7 @@ interface IOMP {
     eventName: "playerCancelPlayerTextDrawSelection",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerClickTextDraw
    *
@@ -2332,6 +2502,7 @@ interface IOMP {
     eventName: "playerClickTextDraw",
     callback: (player: Player, textdraw: TextDraw) => any
   ): void;
+
   /**
    * Removes a specific listener for playerClickPlayerTextDraw
    *
@@ -2343,6 +2514,7 @@ interface IOMP {
     eventName: "playerClickPlayerTextDraw",
     callback: (player: Player, textdraw: TextDraw) => any
   ): void;
+
   /**
    * Removes a specific listener for playerConnect
    *
@@ -2354,6 +2526,7 @@ interface IOMP {
     eventName: "playerConnect",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerSpawn
    *
@@ -2365,6 +2538,7 @@ interface IOMP {
     eventName: "playerSpawn",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerCommandText
    *
@@ -2376,6 +2550,7 @@ interface IOMP {
     eventName: "playerCommandText",
     callback: (player: Player, command: string) => any
   ): void;
+
   /**
    * Removes a specific listener for playerKeyStateChange
    *
@@ -2387,6 +2562,7 @@ interface IOMP {
     eventName: "playerKeyStateChange",
     callback: (player: Player, newKeys: number, oldKeys: number) => any
   ): void;
+
   /**
    * Removes a specific listener for incomingConnection
    *
@@ -2398,6 +2574,7 @@ interface IOMP {
     eventName: "incomingConnection",
     callback: (player: Player, ipAddress: string, port: number) => any
   ): void;
+
   /**
    * Removes a specific listener for playerDisconnect
    *
@@ -2409,6 +2586,7 @@ interface IOMP {
     eventName: "playerDisconnect",
     callback: (player: Player, reason: number) => any
   ): void;
+
   /**
    * Removes a specific listener for playerRequestSpawn
    *
@@ -2420,6 +2598,7 @@ interface IOMP {
     eventName: "playerRequestSpawn",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerStreamIn
    *
@@ -2431,6 +2610,7 @@ interface IOMP {
     eventName: "playerStreamIn",
     callback: (player: Player, forPlayer: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerStreamOut
    *
@@ -2442,6 +2622,7 @@ interface IOMP {
     eventName: "playerStreamOut",
     callback: (player: Player, forPlayer: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerText
    *
@@ -2453,6 +2634,7 @@ interface IOMP {
     eventName: "playerText",
     callback: (player: Player, text: string) => any
   ): void;
+
   /**
    * Removes a specific listener for playerShotMissed
    *
@@ -2470,6 +2652,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerShotPlayer
    *
@@ -2488,6 +2671,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerShotVehicle
    *
@@ -2506,6 +2690,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerShotObject
    *
@@ -2524,6 +2709,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerShotPlayerObject
    *
@@ -2542,6 +2728,7 @@ interface IOMP {
       z: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerDeath
    *
@@ -2553,6 +2740,7 @@ interface IOMP {
     eventName: "playerDeath",
     callback: (player: Player, killer: Player | undefined, reason: number) => any
   ): void;
+
   /**
    * Removes a specific listener for playerTakeDamage
    *
@@ -2570,6 +2758,7 @@ interface IOMP {
       bodypart: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerGiveDamage
    *
@@ -2587,6 +2776,7 @@ interface IOMP {
       bodypart: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerInteriorChange
    *
@@ -2598,6 +2788,7 @@ interface IOMP {
     eventName: "playerInteriorChange",
     callback: (player: Player, newInterior: number, oldInterior: number) => any
   ): void;
+
   /**
    * Removes a specific listener for playerStateChange
    *
@@ -2609,6 +2800,7 @@ interface IOMP {
     eventName: "playerStateChange",
     callback: (player: Player, newState: number, oldState: number) => any
   ): void;
+
   /**
    * Removes a specific listener for playerClickMap
    *
@@ -2620,6 +2812,7 @@ interface IOMP {
     eventName: "playerClickMap",
     callback: (player: Player, x: number, y: number, z: number) => any
   ): void;
+
   /**
    * Removes a specific listener for playerClickPlayer
    *
@@ -2631,6 +2824,7 @@ interface IOMP {
     eventName: "playerClickPlayer",
     callback: (player: Player, clicked: Player, source: number) => any
   ): void;
+
   /**
    * Removes a specific listener for clientCheckResponse
    *
@@ -2647,6 +2841,7 @@ interface IOMP {
       result: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for playerUpdate
    *
@@ -2658,6 +2853,7 @@ interface IOMP {
     eventName: "playerUpdate",
     callback: (player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for vehicleStreamIn
    *
@@ -2669,6 +2865,7 @@ interface IOMP {
     eventName: "vehicleStreamIn",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for vehicleStreamOut
    *
@@ -2680,6 +2877,7 @@ interface IOMP {
     eventName: "vehicleStreamOut",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for vehicleDeath
    *
@@ -2691,6 +2889,7 @@ interface IOMP {
     eventName: "vehicleDeath",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for playerEnterVehicle
    *
@@ -2702,6 +2901,7 @@ interface IOMP {
     eventName: "playerEnterVehicle",
     callback: (player: Player, vehicle: Vehicle, passenger: boolean) => any
   ): void;
+
   /**
    * Removes a specific listener for playerExitVehicle
    *
@@ -2713,6 +2913,7 @@ interface IOMP {
     eventName: "playerExitVehicle",
     callback: (player: Player, vehicle: Vehicle) => any
   ): void;
+
   /**
    * Removes a specific listener for vehicleDamageStatusUpdate
    *
@@ -2724,6 +2925,7 @@ interface IOMP {
     eventName: "vehicleDamageStatusUpdate",
     callback: (vehicle: Vehicle, player: Player) => any
   ): void;
+
   /**
    * Removes a specific listener for vehiclePaintJob
    *
@@ -2735,6 +2937,7 @@ interface IOMP {
     eventName: "vehiclePaintJob",
     callback: (player: Player, vehicle: Vehicle, paintJob: number) => any
   ): void;
+
   /**
    * Removes a specific listener for vehicleMod
    *
@@ -2746,6 +2949,7 @@ interface IOMP {
     eventName: "vehicleMod",
     callback: (player: Player, vehicle: Vehicle, component: number) => any
   ): void;
+
   /**
    * Removes a specific listener for vehicleRespray
    *
@@ -2762,6 +2966,7 @@ interface IOMP {
       color2: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for enterExitModShop
    *
@@ -2773,6 +2978,7 @@ interface IOMP {
     eventName: "enterExitModShop",
     callback: (player: Player, enterexit: number, interiorId: number) => any
   ): void;
+
   /**
    * Removes a specific listener for vehicleSpawn
    *
@@ -2784,6 +2990,7 @@ interface IOMP {
     eventName: "vehicleSpawn",
     callback: (vehicle: Vehicle) => any
   ): void;
+
   /**
    * Removes a specific listener for unoccupiedVehicleUpdate
    *
@@ -2805,6 +3012,7 @@ interface IOMP {
       velocityZ: number
     ) => any
   ): void;
+
   /**
    * Removes a specific listener for trailerUpdate
    *
@@ -2816,6 +3024,7 @@ interface IOMP {
     eventName: "trailerUpdate",
     callback: (player: Player, trailer: Vehicle) => any
   ): void;
+
   /**
    * Removes a specific listener for vehicleSirenStateChange
    *
@@ -2827,6 +3036,7 @@ interface IOMP {
     eventName: "vehicleSirenStateChange",
     callback: (player: Player, vehicle: Vehicle, sirenState: number) => any
   ): void;
+
   /**
    * Removes all listeners for resourceStart
    *
@@ -2834,6 +3044,7 @@ interface IOMP {
    * @param {string} [eventName=resourceStart] - Event name
    */
   removeAllListeners(eventName: "resourceStart"): void;
+
   /**
    * Removes all listeners for playerGiveDamageActor
    *
@@ -2841,6 +3052,7 @@ interface IOMP {
    * @param {string} [eventName=playerGiveDamageActor] - Event name
    */
   removeAllListeners(eventName: "playerGiveDamageActor"): void;
+
   /**
    * Removes all listeners for actorStreamIn
    *
@@ -2848,6 +3060,7 @@ interface IOMP {
    * @param {string} [eventName=actorStreamIn] - Event name
    */
   removeAllListeners(eventName: "actorStreamIn"): void;
+
   /**
    * Removes all listeners for actorStreamOut
    *
@@ -2855,6 +3068,7 @@ interface IOMP {
    * @param {string} [eventName=actorStreamOut] - Event name
    */
   removeAllListeners(eventName: "actorStreamOut"): void;
+
   /**
    * Removes all listeners for playerEnterCheckpoint
    *
@@ -2862,6 +3076,7 @@ interface IOMP {
    * @param {string} [eventName=playerEnterCheckpoint] - Event name
    */
   removeAllListeners(eventName: "playerEnterCheckpoint"): void;
+
   /**
    * Removes all listeners for playerLeaveCheckpoint
    *
@@ -2869,6 +3084,7 @@ interface IOMP {
    * @param {string} [eventName=playerLeaveCheckpoint] - Event name
    */
   removeAllListeners(eventName: "playerLeaveCheckpoint"): void;
+
   /**
    * Removes all listeners for playerEnterRaceCheckpoint
    *
@@ -2876,6 +3092,7 @@ interface IOMP {
    * @param {string} [eventName=playerEnterRaceCheckpoint] - Event name
    */
   removeAllListeners(eventName: "playerEnterRaceCheckpoint"): void;
+
   /**
    * Removes all listeners for playerLeaveRaceCheckpoint
    *
@@ -2883,6 +3100,7 @@ interface IOMP {
    * @param {string} [eventName=playerLeaveRaceCheckpoint] - Event name
    */
   removeAllListeners(eventName: "playerLeaveRaceCheckpoint"): void;
+
   /**
    * Removes all listeners for playerRequestClass
    *
@@ -2890,6 +3108,7 @@ interface IOMP {
    * @param {string} [eventName=playerRequestClass] - Event name
    */
   removeAllListeners(eventName: "playerRequestClass"): void;
+
   /**
    * Removes all listeners for consoleText
    *
@@ -2897,6 +3116,7 @@ interface IOMP {
    * @param {string} [eventName=consoleText] - Event name
    */
   removeAllListeners(eventName: "consoleText"): void;
+
   /**
    * Removes all listeners for rconLoginAttempt
    *
@@ -2904,6 +3124,7 @@ interface IOMP {
    * @param {string} [eventName=rconLoginAttempt] - Event name
    */
   removeAllListeners(eventName: "rconLoginAttempt"): void;
+
   /**
    * Removes all listeners for tick
    *
@@ -2911,6 +3132,7 @@ interface IOMP {
    * @param {string} [eventName=tick] - Event name
    */
   removeAllListeners(eventName: "tick"): void;
+
   /**
    * Removes all listeners for playerFinishedDownloading
    *
@@ -2918,6 +3140,7 @@ interface IOMP {
    * @param {string} [eventName=playerFinishedDownloading] - Event name
    */
   removeAllListeners(eventName: "playerFinishedDownloading"): void;
+
   /**
    * Removes all listeners for playerRequestDownload
    *
@@ -2925,6 +3148,7 @@ interface IOMP {
    * @param {string} [eventName=playerRequestDownload] - Event name
    */
   removeAllListeners(eventName: "playerRequestDownload"): void;
+
   /**
    * Removes all listeners for dialogResponse
    *
@@ -2932,6 +3156,7 @@ interface IOMP {
    * @param {string} [eventName=dialogResponse] - Event name
    */
   removeAllListeners(eventName: "dialogResponse"): void;
+
   /**
    * Removes all listeners for playerEnterGangZone
    *
@@ -2939,6 +3164,7 @@ interface IOMP {
    * @param {string} [eventName=playerEnterGangZone] - Event name
    */
   removeAllListeners(eventName: "playerEnterGangZone"): void;
+
   /**
    * Removes all listeners for playerLeaveGangZone
    *
@@ -2946,6 +3172,7 @@ interface IOMP {
    * @param {string} [eventName=playerLeaveGangZone] - Event name
    */
   removeAllListeners(eventName: "playerLeaveGangZone"): void;
+
   /**
    * Removes all listeners for playerClickGangZone
    *
@@ -2953,6 +3180,7 @@ interface IOMP {
    * @param {string} [eventName=playerClickGangZone] - Event name
    */
   removeAllListeners(eventName: "playerClickGangZone"): void;
+
   /**
    * Removes all listeners for playerSelectedMenuRow
    *
@@ -2960,6 +3188,7 @@ interface IOMP {
    * @param {string} [eventName=playerSelectedMenuRow] - Event name
    */
   removeAllListeners(eventName: "playerSelectedMenuRow"): void;
+
   /**
    * Removes all listeners for playerExitedMenu
    *
@@ -2967,6 +3196,7 @@ interface IOMP {
    * @param {string} [eventName=playerExitedMenu] - Event name
    */
   removeAllListeners(eventName: "playerExitedMenu"): void;
+
   /**
    * Removes all listeners for objectMove
    *
@@ -2974,6 +3204,7 @@ interface IOMP {
    * @param {string} [eventName=objectMove] - Event name
    */
   removeAllListeners(eventName: "objectMove"): void;
+
   /**
    * Removes all listeners for playerObjectMove
    *
@@ -2981,6 +3212,7 @@ interface IOMP {
    * @param {string} [eventName=playerObjectMove] - Event name
    */
   removeAllListeners(eventName: "playerObjectMove"): void;
+
   /**
    * Removes all listeners for playerEditObject
    *
@@ -2988,6 +3220,7 @@ interface IOMP {
    * @param {string} [eventName=playerEditObject] - Event name
    */
   removeAllListeners(eventName: "playerEditObject"): void;
+
   /**
    * Removes all listeners for playerEditPlayerObject
    *
@@ -2995,6 +3228,7 @@ interface IOMP {
    * @param {string} [eventName=playerEditPlayerObject] - Event name
    */
   removeAllListeners(eventName: "playerEditPlayerObject"): void;
+
   /**
    * Removes all listeners for playerEditAttachedObject
    *
@@ -3002,6 +3236,7 @@ interface IOMP {
    * @param {string} [eventName=playerEditAttachedObject] - Event name
    */
   removeAllListeners(eventName: "playerEditAttachedObject"): void;
+
   /**
    * Removes all listeners for playerSelectObject
    *
@@ -3009,6 +3244,7 @@ interface IOMP {
    * @param {string} [eventName=playerSelectObject] - Event name
    */
   removeAllListeners(eventName: "playerSelectObject"): void;
+
   /**
    * Removes all listeners for playerSelectPlayerObject
    *
@@ -3016,6 +3252,7 @@ interface IOMP {
    * @param {string} [eventName=playerSelectPlayerObject] - Event name
    */
   removeAllListeners(eventName: "playerSelectPlayerObject"): void;
+
   /**
    * Removes all listeners for playerPickUpPickup
    *
@@ -3023,6 +3260,7 @@ interface IOMP {
    * @param {string} [eventName=playerPickUpPickup] - Event name
    */
   removeAllListeners(eventName: "playerPickUpPickup"): void;
+
   /**
    * Removes all listeners for playerCancelTextDrawSelection
    *
@@ -3030,6 +3268,7 @@ interface IOMP {
    * @param {string} [eventName=playerCancelTextDrawSelection] - Event name
    */
   removeAllListeners(eventName: "playerCancelTextDrawSelection"): void;
+
   /**
    * Removes all listeners for playerCancelPlayerTextDrawSelection
    *
@@ -3037,6 +3276,7 @@ interface IOMP {
    * @param {string} [eventName=playerCancelPlayerTextDrawSelection] - Event name
    */
   removeAllListeners(eventName: "playerCancelPlayerTextDrawSelection"): void;
+
   /**
    * Removes all listeners for playerClickTextDraw
    *
@@ -3044,6 +3284,7 @@ interface IOMP {
    * @param {string} [eventName=playerClickTextDraw] - Event name
    */
   removeAllListeners(eventName: "playerClickTextDraw"): void;
+
   /**
    * Removes all listeners for playerClickPlayerTextDraw
    *
@@ -3051,6 +3292,7 @@ interface IOMP {
    * @param {string} [eventName=playerClickPlayerTextDraw] - Event name
    */
   removeAllListeners(eventName: "playerClickPlayerTextDraw"): void;
+
   /**
    * Removes all listeners for playerConnect
    *
@@ -3058,6 +3300,7 @@ interface IOMP {
    * @param {string} [eventName=playerConnect] - Event name
    */
   removeAllListeners(eventName: "playerConnect"): void;
+
   /**
    * Removes all listeners for playerSpawn
    *
@@ -3065,6 +3308,7 @@ interface IOMP {
    * @param {string} [eventName=playerSpawn] - Event name
    */
   removeAllListeners(eventName: "playerSpawn"): void;
+
   /**
    * Removes all listeners for playerCommandText
    *
@@ -3072,6 +3316,7 @@ interface IOMP {
    * @param {string} [eventName=playerCommandText] - Event name
    */
   removeAllListeners(eventName: "playerCommandText"): void;
+
   /**
    * Removes all listeners for playerKeyStateChange
    *
@@ -3079,6 +3324,7 @@ interface IOMP {
    * @param {string} [eventName=playerKeyStateChange] - Event name
    */
   removeAllListeners(eventName: "playerKeyStateChange"): void;
+
   /**
    * Removes all listeners for incomingConnection
    *
@@ -3086,6 +3332,7 @@ interface IOMP {
    * @param {string} [eventName=incomingConnection] - Event name
    */
   removeAllListeners(eventName: "incomingConnection"): void;
+
   /**
    * Removes all listeners for playerDisconnect
    *
@@ -3093,6 +3340,7 @@ interface IOMP {
    * @param {string} [eventName=playerDisconnect] - Event name
    */
   removeAllListeners(eventName: "playerDisconnect"): void;
+
   /**
    * Removes all listeners for playerRequestSpawn
    *
@@ -3100,6 +3348,7 @@ interface IOMP {
    * @param {string} [eventName=playerRequestSpawn] - Event name
    */
   removeAllListeners(eventName: "playerRequestSpawn"): void;
+
   /**
    * Removes all listeners for playerStreamIn
    *
@@ -3107,6 +3356,7 @@ interface IOMP {
    * @param {string} [eventName=playerStreamIn] - Event name
    */
   removeAllListeners(eventName: "playerStreamIn"): void;
+
   /**
    * Removes all listeners for playerStreamOut
    *
@@ -3114,6 +3364,7 @@ interface IOMP {
    * @param {string} [eventName=playerStreamOut] - Event name
    */
   removeAllListeners(eventName: "playerStreamOut"): void;
+
   /**
    * Removes all listeners for playerText
    *
@@ -3121,6 +3372,7 @@ interface IOMP {
    * @param {string} [eventName=playerText] - Event name
    */
   removeAllListeners(eventName: "playerText"): void;
+
   /**
    * Removes all listeners for playerShotMissed
    *
@@ -3128,6 +3380,7 @@ interface IOMP {
    * @param {string} [eventName=playerShotMissed] - Event name
    */
   removeAllListeners(eventName: "playerShotMissed"): void;
+
   /**
    * Removes all listeners for playerShotPlayer
    *
@@ -3135,6 +3388,7 @@ interface IOMP {
    * @param {string} [eventName=playerShotPlayer] - Event name
    */
   removeAllListeners(eventName: "playerShotPlayer"): void;
+
   /**
    * Removes all listeners for playerShotVehicle
    *
@@ -3142,6 +3396,7 @@ interface IOMP {
    * @param {string} [eventName=playerShotVehicle] - Event name
    */
   removeAllListeners(eventName: "playerShotVehicle"): void;
+
   /**
    * Removes all listeners for playerShotObject
    *
@@ -3149,6 +3404,7 @@ interface IOMP {
    * @param {string} [eventName=playerShotObject] - Event name
    */
   removeAllListeners(eventName: "playerShotObject"): void;
+
   /**
    * Removes all listeners for playerShotPlayerObject
    *
@@ -3156,6 +3412,7 @@ interface IOMP {
    * @param {string} [eventName=playerShotPlayerObject] - Event name
    */
   removeAllListeners(eventName: "playerShotPlayerObject"): void;
+
   /**
    * Removes all listeners for playerDeath
    *
@@ -3163,6 +3420,7 @@ interface IOMP {
    * @param {string} [eventName=playerDeath] - Event name
    */
   removeAllListeners(eventName: "playerDeath"): void;
+
   /**
    * Removes all listeners for playerTakeDamage
    *
@@ -3170,6 +3428,7 @@ interface IOMP {
    * @param {string} [eventName=playerTakeDamage] - Event name
    */
   removeAllListeners(eventName: "playerTakeDamage"): void;
+
   /**
    * Removes all listeners for playerGiveDamage
    *
@@ -3177,6 +3436,7 @@ interface IOMP {
    * @param {string} [eventName=playerGiveDamage] - Event name
    */
   removeAllListeners(eventName: "playerGiveDamage"): void;
+
   /**
    * Removes all listeners for playerInteriorChange
    *
@@ -3184,6 +3444,7 @@ interface IOMP {
    * @param {string} [eventName=playerInteriorChange] - Event name
    */
   removeAllListeners(eventName: "playerInteriorChange"): void;
+
   /**
    * Removes all listeners for playerStateChange
    *
@@ -3191,6 +3452,7 @@ interface IOMP {
    * @param {string} [eventName=playerStateChange] - Event name
    */
   removeAllListeners(eventName: "playerStateChange"): void;
+
   /**
    * Removes all listeners for playerClickMap
    *
@@ -3198,6 +3460,7 @@ interface IOMP {
    * @param {string} [eventName=playerClickMap] - Event name
    */
   removeAllListeners(eventName: "playerClickMap"): void;
+
   /**
    * Removes all listeners for playerClickPlayer
    *
@@ -3205,6 +3468,7 @@ interface IOMP {
    * @param {string} [eventName=playerClickPlayer] - Event name
    */
   removeAllListeners(eventName: "playerClickPlayer"): void;
+
   /**
    * Removes all listeners for clientCheckResponse
    *
@@ -3212,6 +3476,7 @@ interface IOMP {
    * @param {string} [eventName=clientCheckResponse] - Event name
    */
   removeAllListeners(eventName: "clientCheckResponse"): void;
+
   /**
    * Removes all listeners for playerUpdate
    *
@@ -3219,6 +3484,7 @@ interface IOMP {
    * @param {string} [eventName=playerUpdate] - Event name
    */
   removeAllListeners(eventName: "playerUpdate"): void;
+
   /**
    * Removes all listeners for vehicleStreamIn
    *
@@ -3226,6 +3492,7 @@ interface IOMP {
    * @param {string} [eventName=vehicleStreamIn] - Event name
    */
   removeAllListeners(eventName: "vehicleStreamIn"): void;
+
   /**
    * Removes all listeners for vehicleStreamOut
    *
@@ -3233,6 +3500,7 @@ interface IOMP {
    * @param {string} [eventName=vehicleStreamOut] - Event name
    */
   removeAllListeners(eventName: "vehicleStreamOut"): void;
+
   /**
    * Removes all listeners for vehicleDeath
    *
@@ -3240,6 +3508,7 @@ interface IOMP {
    * @param {string} [eventName=vehicleDeath] - Event name
    */
   removeAllListeners(eventName: "vehicleDeath"): void;
+
   /**
    * Removes all listeners for playerEnterVehicle
    *
@@ -3247,6 +3516,7 @@ interface IOMP {
    * @param {string} [eventName=playerEnterVehicle] - Event name
    */
   removeAllListeners(eventName: "playerEnterVehicle"): void;
+
   /**
    * Removes all listeners for playerExitVehicle
    *
@@ -3254,6 +3524,7 @@ interface IOMP {
    * @param {string} [eventName=playerExitVehicle] - Event name
    */
   removeAllListeners(eventName: "playerExitVehicle"): void;
+
   /**
    * Removes all listeners for vehicleDamageStatusUpdate
    *
@@ -3261,6 +3532,7 @@ interface IOMP {
    * @param {string} [eventName=vehicleDamageStatusUpdate] - Event name
    */
   removeAllListeners(eventName: "vehicleDamageStatusUpdate"): void;
+
   /**
    * Removes all listeners for vehiclePaintJob
    *
@@ -3268,6 +3540,7 @@ interface IOMP {
    * @param {string} [eventName=vehiclePaintJob] - Event name
    */
   removeAllListeners(eventName: "vehiclePaintJob"): void;
+
   /**
    * Removes all listeners for vehicleMod
    *
@@ -3275,6 +3548,7 @@ interface IOMP {
    * @param {string} [eventName=vehicleMod] - Event name
    */
   removeAllListeners(eventName: "vehicleMod"): void;
+
   /**
    * Removes all listeners for vehicleRespray
    *
@@ -3282,6 +3556,7 @@ interface IOMP {
    * @param {string} [eventName=vehicleRespray] - Event name
    */
   removeAllListeners(eventName: "vehicleRespray"): void;
+
   /**
    * Removes all listeners for enterExitModShop
    *
@@ -3289,6 +3564,7 @@ interface IOMP {
    * @param {string} [eventName=enterExitModShop] - Event name
    */
   removeAllListeners(eventName: "enterExitModShop"): void;
+
   /**
    * Removes all listeners for vehicleSpawn
    *
@@ -3296,6 +3572,7 @@ interface IOMP {
    * @param {string} [eventName=vehicleSpawn] - Event name
    */
   removeAllListeners(eventName: "vehicleSpawn"): void;
+
   /**
    * Removes all listeners for unoccupiedVehicleUpdate
    *
@@ -3303,6 +3580,7 @@ interface IOMP {
    * @param {string} [eventName=unoccupiedVehicleUpdate] - Event name
    */
   removeAllListeners(eventName: "unoccupiedVehicleUpdate"): void;
+
   /**
    * Removes all listeners for trailerUpdate
    *
@@ -3310,6 +3588,7 @@ interface IOMP {
    * @param {string} [eventName=trailerUpdate] - Event name
    */
   removeAllListeners(eventName: "trailerUpdate"): void;
+
   /**
    * Removes all listeners for vehicleSirenStateChange
    *
@@ -3317,6 +3596,34 @@ interface IOMP {
    * @param {string} [eventName=vehicleSirenStateChange] - Event name
    */
   removeAllListeners(eventName: "vehicleSirenStateChange"): void;
+
+  /**
+   * General use for externally defined events
+   * @param eventName string
+   * @param callback any
+   */
+  on<TArgs extends any[] = any[]>(eventName: string, callback: (...args: TArgs) => any): void;
+
+  /**
+   * General use for externally defined events
+   * @param eventName string
+   * @param callback any
+   */
+  addListener<TArgs extends any[] = any[]>(eventName: string, callback: (...args: TArgs) => any): void;
+
+  /**
+   * General use for externally defined events
+   * @param eventName string
+   * @param callback any
+   */
+  removeListener<TArgs extends any[] = any[]>(eventName: string, callback: (...args: TArgs) => any): void;
+
+  /**
+   * General use for externally defined events
+   * @param eventName string
+   */
+  removeAllListeners(eventName: string): void;
+
   /**
    * open.mp log function, works like console.log except it writes to your server log file as well
    *
@@ -3325,6 +3632,7 @@ interface IOMP {
    * @param optionalParams any[]
    */
   log(message?: any, ...optionalParams: any[]): void;
+
   /**
    * Players
    */
