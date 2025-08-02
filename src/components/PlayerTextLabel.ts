@@ -81,7 +81,7 @@ export default class PlayerTextLabel {
     }
 
     const result = internal_omp.PlayerTextLabel.Create(
-      player,
+      player.getPtr(),
       text,
       color,
       x,
@@ -113,7 +113,7 @@ export default class PlayerTextLabel {
       throw new Error("PlayerTextLabel instance is not valid");
     }
 
-    const result = internal_omp.PlayerTextLabel.Destroy(this.player, this.ptr);
+    const result = internal_omp.PlayerTextLabel.Destroy(this.player.getPtr(), this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;

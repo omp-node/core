@@ -52,7 +52,7 @@ export default class PlayerTextDraw {
       return;
     }
 
-    const result = internal_omp.PlayerTextDraw.Create(player, x, y, text);
+    const result = internal_omp.PlayerTextDraw.Create(player.getPtr(), x, y, text);
     if (result.ret === 0) {
       throw new Error("Failed to create playerTextDraw");
     }
@@ -70,11 +70,11 @@ export default class PlayerTextDraw {
    * @throws Will throw an error if the playerTextDraw retrieval fails
    */
   destroy(): void {
-    if (!this.ptr) {
+    if (!this.ptr || !this.player) {
       throw new Error("PlayerTextDraw instance is not valid");
     }
 
-    const result = internal_omp.PlayerTextDraw.Destroy(this.player, this.ptr);
+    const result = internal_omp.PlayerTextDraw.Destroy(this.player.getPtr(), this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;

@@ -78,7 +78,7 @@ export default class PlayerObject {
     }
 
     const result = internal_omp.PlayerObject.Create(
-      player,
+      player.getPtr(),
       modelid,
       x,
       y,
@@ -109,7 +109,7 @@ export default class PlayerObject {
       throw new Error("PlayerObject instance is not valid");
     }
 
-    const result = internal_omp.PlayerObject.Destroy(this.player, this.ptr);
+    const result = internal_omp.PlayerObject.Destroy(this.player.getPtr(), this.ptr);
     if (result.ret) {
       this.ptr = null;
       this.id = null;
