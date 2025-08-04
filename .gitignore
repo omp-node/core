@@ -2,3 +2,4 @@
 .npmrc
 node_modules
 dist
+.idea
