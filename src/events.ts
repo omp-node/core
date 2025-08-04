@@ -170,7 +170,7 @@ export const initializeEvents = () => {
   eventEmitter_raw.on(
     "playerObjectPoolEntryCreate",
     async (_, playerId, entityId) => {
-      const player = omp.players(playerId);
+      const player = omp.players.at(playerId);
       const playerPool = omp.playerObjects.at(playerId);
       if (playerPool && player) {
         const entity = playerPool.at(entityId);
@@ -196,7 +196,7 @@ export const initializeEvents = () => {
   eventEmitter_raw.on(
     "playerTextLabelPoolEntryCreate",
     async (_, playerId, entityId) => {
-      const player = omp.players(playerId);
+      const player = omp.players.at(playerId);
       const playerPool = omp.playerTextLabels.at(playerId);
       if (playerPool && player) {
         const entity = playerPool.at(entityId);
@@ -225,7 +225,7 @@ export const initializeEvents = () => {
   eventEmitter_raw.on(
     "playerTextDrawPoolEntryCreate",
     async (_, playerId, entityId) => {
-      const player = omp.players(playerId);
+      const player = omp.players.at(playerId);
       const playerPool = omp.playerTextDraws.at(playerId);
       if (playerPool && player) {
         const entity = playerPool.at(entityId);
