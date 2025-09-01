@@ -57,7 +57,7 @@ export default class PlayerTextDraw {
       throw new Error("Failed to create playerTextDraw");
     }
 
-    this.player = player as Player;
+    this.player = player;
     this.ptr = PTR(result.ret);
     if (result.hasOwnProperty("id")) {
       this.id = result.id;

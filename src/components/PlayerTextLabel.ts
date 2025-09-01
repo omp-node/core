@@ -88,15 +88,15 @@ export default class PlayerTextLabel {
       y,
       z,
       drawDistance,
-      (attachedPlayer as Player).getPtr(),
-      (attachedVehicle as Vehicle).getPtr(),
+      attachedPlayer ? attachedPlayer.getPtr() : 0,
+      attachedVehicle ? attachedVehicle.getPtr() : 0,
       los
     );
     if (result.ret === 0) {
       throw new Error("Failed to create playerTextLabel");
     }
 
-    this.player = player as Player;
+    this.player = player;
     this.ptr = PTR(result.ret);
     if (result.hasOwnProperty("id")) {
       this.id = result.id;
