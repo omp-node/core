@@ -5,6 +5,7 @@ import {
   Actor,
   GangZone,
   Menu,
+  NPC,
   ObjectMp,
   Pickup,
   Player,
@@ -87,6 +88,14 @@ async function onResourceStart(_: number, error: boolean) {
       try {
         // @ts-ignore
         omp.menus.add_INTERNAL_UNSAFE(new Menu(i));
+      } catch (e) {}
+    }
+
+    omp.npcs = new Pool<NPC>();
+    for (let i = 0; i < constants.NPC_POOL_SIZE; i++) {
+      try {
+        // @ts-ignore
+        omp.npcs.add_INTERNAL_UNSAFE(new NPC(i));
       } catch (e) {}
     }
 

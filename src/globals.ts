@@ -11,6 +11,7 @@ import {
   TextDraw,
   TextLabel,
   Vehicle,
+  NPC
 } from "./components";
 import { PerPlayerEntityPool, PlayerPool, Pool } from "./pools";
 
@@ -285,6 +286,330 @@ interface IOMP {
    * @param {function} callback - Event callback
    */
   on(eventName: "playerExitedMenu", callback: (player: Player) => any): void;
+
+  /**
+   * Adds a new event listener to npcFinishMove
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcFinishMove] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(eventName: "npcFinishMove", callback: (npc: NPC) => any): void;
+
+  /**
+   * Adds a new event listener to npcCreate
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcCreate] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(eventName: "npcCreate", callback: (npc: NPC) => any): void;
+
+  /**
+   * Adds a new event listener to npcDestroy
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcDestroy] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(eventName: "npcDestroy", callback: (npc: NPC) => any): void;
+
+  /**
+   * Adds a new event listener to npcWeaponStateChange
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcWeaponStateChange] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcWeaponStateChange",
+    callback: (npc: NPC, newState: number, oldState: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcTakeDamage
+   *
+   * @name omp.on
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcTakeDamage] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcTakeDamage",
+    callback: (
+      npc: NPC,
+      damager: NPC,
+      damage: number,
+      weapon: number,
+      bodyPart: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcGiveDamage
+   *
+   * @name omp.on
+   * @badret Returning true will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcGiveDamage] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcGiveDamage",
+    callback: (
+      npc: NPC,
+      damaged: NPC,
+      damage: number,
+      weapon: number,
+      bodyPart: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcDeath
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcDeath] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcDeath",
+    callback: (npc: NPC, killer: Player, reason: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcSpawn
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcSpawn] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(eventName: "npcSpawn", callback: (npc: NPC) => any): void;
+
+  /**
+   * Adds a new event listener to npcRespawn
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcRespawn] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(eventName: "npcRespawn", callback: (npc: NPC) => any): void;
+
+  /**
+   * Adds a new event listener to npcPlaybackStart
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcPlaybackStart] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcPlaybackStart",
+    callback: (npc: NPC, recordId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcPlaybackEnd
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcPlaybackEnd] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcPlaybackEnd",
+    callback: (npc: NPC, recordId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotMissed
+   *
+   * @name omp.on
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotMissed] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcShotMissed",
+    callback: (
+      npc: NPC,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotPlayer
+   *
+   * @name omp.on
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotPlayer] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcShotPlayer",
+    callback: (
+      npc: NPC,
+      player: Player,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotNPC
+   *
+   * @name omp.on
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotNPC] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcShotNPC",
+    callback: (
+      npc: NPC,
+      npcTarget: NPC,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotVehicle
+   *
+   * @name omp.on
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotVehicle] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcShotVehicle",
+    callback: (
+      npc: NPC,
+      vehicle: Vehicle,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotObject
+   *
+   * @name omp.on
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotObject] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcShotObject",
+    callback: (
+      npc: NPC,
+      object: Object,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotPlayerObject
+   *
+   * @name omp.on
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotPlayerObject] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcShotPlayerObject",
+    callback: (
+      npc: NPC,
+      playerObject: PlayerObject,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcFinishNodePoint
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcFinishNodePoint] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcFinishNodePoint",
+    callback: (npc: NPC, nodeId: number, pointId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcFinishNode
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcFinishNode] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcFinishNode",
+    callback: (npc: NPC, nodeId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcChangeNode
+   *
+   * @name omp.on
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcChangeNode] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcChangeNode",
+    callback: (npc: NPC, newNodeId: number, oldNodeId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcFinishMovePath
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcFinishMovePath] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcFinishMovePath",
+    callback: (npc: NPC, pathId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcFinishMovePathPoint
+   *
+   * @name omp.on
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcFinishMovePathPoint] - Event name
+   * @param {function} callback - Event callback
+   */
+  on(
+    eventName: "npcFinishMovePathPoint",
+    callback: (npc: NPC, pathId: number, pointId: number) => any
+  ): void;
 
   /**
    * Adds a new event listener to objectMove
@@ -718,7 +1043,11 @@ interface IOMP {
    */
   on(
     eventName: "playerDeath",
-    callback: (player: Player, killer: Player | undefined, reason: number) => any
+    callback: (
+      player: Player,
+      killer: Player | undefined,
+      reason: number
+    ) => any
   ): void;
 
   /**
@@ -1303,6 +1632,330 @@ interface IOMP {
   ): void;
 
   /**
+   * Adds a new event listener to npcFinishMove
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcFinishMove] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(eventName: "npcFinishMove", callback: (npc: NPC) => any): void;
+
+  /**
+   * Adds a new event listener to npcCreate
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcCreate] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(eventName: "npcCreate", callback: (npc: NPC) => any): void;
+
+  /**
+   * Adds a new event listener to npcDestroy
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcDestroy] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(eventName: "npcDestroy", callback: (npc: NPC) => any): void;
+
+  /**
+   * Adds a new event listener to npcWeaponStateChange
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcWeaponStateChange] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcWeaponStateChange",
+    callback: (npc: NPC, newState: number, oldState: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcTakeDamage
+   *
+   * @name omp.addListener
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcTakeDamage] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcTakeDamage",
+    callback: (
+      npc: NPC,
+      damager: NPC,
+      damage: number,
+      weapon: number,
+      bodyPart: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcGiveDamage
+   *
+   * @name omp.addListener
+   * @badret Returning true will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcGiveDamage] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcGiveDamage",
+    callback: (
+      npc: NPC,
+      damaged: NPC,
+      damage: number,
+      weapon: number,
+      bodyPart: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcDeath
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcDeath] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcDeath",
+    callback: (npc: NPC, killer: Player, reason: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcSpawn
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcSpawn] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(eventName: "npcSpawn", callback: (npc: NPC) => any): void;
+
+  /**
+   * Adds a new event listener to npcRespawn
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcRespawn] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(eventName: "npcRespawn", callback: (npc: NPC) => any): void;
+
+  /**
+   * Adds a new event listener to npcPlaybackStart
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcPlaybackStart] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcPlaybackStart",
+    callback: (npc: NPC, recordId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcPlaybackEnd
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcPlaybackEnd] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcPlaybackEnd",
+    callback: (npc: NPC, recordId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotMissed
+   *
+   * @name omp.addListener
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotMissed] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcShotMissed",
+    callback: (
+      npc: NPC,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotPlayer
+   *
+   * @name omp.addListener
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotPlayer] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcShotPlayer",
+    callback: (
+      npc: NPC,
+      player: Player,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotNPC
+   *
+   * @name omp.addListener
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotNPC] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcShotNPC",
+    callback: (
+      npc: NPC,
+      npcTarget: NPC,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotVehicle
+   *
+   * @name omp.addListener
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotVehicle] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcShotVehicle",
+    callback: (
+      npc: NPC,
+      vehicle: Vehicle,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotObject
+   *
+   * @name omp.addListener
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotObject] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcShotObject",
+    callback: (
+      npc: NPC,
+      object: Object,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcShotPlayerObject
+   *
+   * @name omp.addListener
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcShotPlayerObject] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcShotPlayerObject",
+    callback: (
+      npc: NPC,
+      playerObject: PlayerObject,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcFinishNodePoint
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcFinishNodePoint] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcFinishNodePoint",
+    callback: (npc: NPC, nodeId: number, pointId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcFinishNode
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcFinishNode] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcFinishNode",
+    callback: (npc: NPC, nodeId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcChangeNode
+   *
+   * @name omp.addListener
+   * @badret Returning false will stop other listeners from being executed and break the call chain.
+   * @param {string} [eventName=npcChangeNode] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcChangeNode",
+    callback: (npc: NPC, newNodeId: number, oldNodeId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcFinishMovePath
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcFinishMovePath] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcFinishMovePath",
+    callback: (npc: NPC, pathId: number) => any
+  ): void;
+
+  /**
+   * Adds a new event listener to npcFinishMovePathPoint
+   *
+   * @name omp.addListener
+   * @badret Returning a value won't change anything in call chain behavior
+   * @param {string} [eventName=npcFinishMovePathPoint] - Event name
+   * @param {function} callback - Event callback
+   */
+  addListener(
+    eventName: "npcFinishMovePathPoint",
+    callback: (npc: NPC, pathId: number, pointId: number) => any
+  ): void;
+
+  /**
    * Adds a new event listener to objectMove
    *
    * @name omp.addListener
@@ -1746,7 +2399,11 @@ interface IOMP {
    */
   addListener(
     eventName: "playerDeath",
-    callback: (player: Player, killer: Player | undefined, reason: number) => any
+    callback: (
+      player: Player,
+      killer: Player | undefined,
+      reason: number
+    ) => any
   ): void;
 
   /**
@@ -2323,6 +2980,308 @@ interface IOMP {
   ): void;
 
   /**
+   * Removes a specific listener for npcFinishMove
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcFinishMove] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(eventName: "npcFinishMove", callback: (npc: NPC) => any): void;
+
+  /**
+   * Removes a specific listener for npcCreate
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcCreate] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(eventName: "npcCreate", callback: (npc: NPC) => any): void;
+
+  /**
+   * Removes a specific listener for npcDestroy
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcDestroy] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(eventName: "npcDestroy", callback: (npc: NPC) => any): void;
+
+  /**
+   * Removes a specific listener for npcWeaponStateChange
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcWeaponStateChange] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcWeaponStateChange",
+    callback: (npc: NPC, newState: number, oldState: number) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcTakeDamage
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcTakeDamage] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcTakeDamage",
+    callback: (
+      npc: NPC,
+      damager: NPC,
+      damage: number,
+      weapon: number,
+      bodyPart: number
+    ) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcGiveDamage
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcGiveDamage] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcGiveDamage",
+    callback: (
+      npc: NPC,
+      damaged: NPC,
+      damage: number,
+      weapon: number,
+      bodyPart: number
+    ) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcDeath
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcDeath] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcDeath",
+    callback: (npc: NPC, killer: Player, reason: number) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcSpawn
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcSpawn] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(eventName: "npcSpawn", callback: (npc: NPC) => any): void;
+
+  /**
+   * Removes a specific listener for npcRespawn
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcRespawn] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(eventName: "npcRespawn", callback: (npc: NPC) => any): void;
+
+  /**
+   * Removes a specific listener for npcPlaybackStart
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcPlaybackStart] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcPlaybackStart",
+    callback: (npc: NPC, recordId: number) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcPlaybackEnd
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcPlaybackEnd] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcPlaybackEnd",
+    callback: (npc: NPC, recordId: number) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcShotMissed
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcShotMissed] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcShotMissed",
+    callback: (
+      npc: NPC,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcShotPlayer
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcShotPlayer] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcShotPlayer",
+    callback: (
+      npc: NPC,
+      player: Player,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcShotNPC
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcShotNPC] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcShotNPC",
+    callback: (
+      npc: NPC,
+      npcTarget: NPC,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcShotVehicle
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcShotVehicle] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcShotVehicle",
+    callback: (
+      npc: NPC,
+      vehicle: Vehicle,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcShotObject
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcShotObject] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcShotObject",
+    callback: (
+      npc: NPC,
+      object: Object,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcShotPlayerObject
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcShotPlayerObject] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcShotPlayerObject",
+    callback: (
+      npc: NPC,
+      playerObject: PlayerObject,
+      weapon: number,
+      offsetX: number,
+      offsetY: number,
+      offsetZ: number
+    ) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcFinishNodePoint
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcFinishNodePoint] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcFinishNodePoint",
+    callback: (npc: NPC, nodeId: number, pointId: number) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcFinishNode
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcFinishNode] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcFinishNode",
+    callback: (npc: NPC, nodeId: number) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcChangeNode
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcChangeNode] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcChangeNode",
+    callback: (npc: NPC, newNodeId: number, oldNodeId: number) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcFinishMovePath
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcFinishMovePath] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcFinishMovePath",
+    callback: (npc: NPC, pathId: number) => any
+  ): void;
+
+  /**
+   * Removes a specific listener for npcFinishMovePathPoint
+   *
+   * @name omp.removeListener
+   * @param {string} [eventName=npcFinishMovePathPoint] - Event name
+   * @param {function} callback - Event callback
+   */
+  removeListener(
+    eventName: "npcFinishMovePathPoint",
+    callback: (npc: NPC, pathId: number, pointId: number) => any
+  ): void;
+
+  /**
    * Removes a specific listener for objectMove
    *
    * @name omp.removeListener
@@ -2738,7 +3697,11 @@ interface IOMP {
    */
   removeListener(
     eventName: "playerDeath",
-    callback: (player: Player, killer: Player | undefined, reason: number) => any
+    callback: (
+      player: Player,
+      killer: Player | undefined,
+      reason: number
+    ) => any
   ): void;
 
   /**
@@ -3198,6 +4161,174 @@ interface IOMP {
   removeAllListeners(eventName: "playerExitedMenu"): void;
 
   /**
+   * Removes all listeners for npcCreate
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcCreate] - Event name
+   */
+  removeAllListeners(eventName: "npcCreate"): void;
+
+  /**
+   * Removes all listeners for npcDestroy
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcDestroy] - Event name
+   */
+  removeAllListeners(eventName: "npcDestroy"): void;
+
+  /**
+   * Removes all listeners for npcWeaponStateChange
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcWeaponStateChange] - Event name
+   */
+  removeAllListeners(eventName: "npcWeaponStateChange"): void;
+
+  /**
+   * Removes all listeners for npcTakeDamage
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcTakeDamage] - Event name
+   */
+  removeAllListeners(eventName: "npcTakeDamage"): void;
+
+  /**
+   * Removes all listeners for npcGiveDamage
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcGiveDamage] - Event name
+   */
+  removeAllListeners(eventName: "npcGiveDamage"): void;
+
+  /**
+   * Removes all listeners for npcDeath
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcDeath] - Event name
+   */
+  removeAllListeners(eventName: "npcDeath"): void;
+
+  /**
+   * Removes all listeners for npcSpawn
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcSpawn] - Event name
+   */
+  removeAllListeners(eventName: "npcSpawn"): void;
+
+  /**
+   * Removes all listeners for npcRespawn
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcRespawn] - Event name
+   */
+  removeAllListeners(eventName: "npcRespawn"): void;
+
+  /**
+   * Removes all listeners for npcPlaybackStart
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcPlaybackStart] - Event name
+   */
+  removeAllListeners(eventName: "npcPlaybackStart"): void;
+
+  /**
+   * Removes all listeners for npcPlaybackEnd
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcPlaybackEnd] - Event name
+   */
+  removeAllListeners(eventName: "npcPlaybackEnd"): void;
+
+  /**
+   * Removes all listeners for npcShotMissed
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcShotMissed] - Event name
+   */
+  removeAllListeners(eventName: "npcShotMissed"): void;
+
+  /**
+   * Removes all listeners for npcShotPlayer
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcShotPlayer] - Event name
+   */
+  removeAllListeners(eventName: "npcShotPlayer"): void;
+
+  /**
+   * Removes all listeners for npcShotNPC
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcShotNPC] - Event name
+   */
+  removeAllListeners(eventName: "npcShotNPC"): void;
+
+  /**
+   * Removes all listeners for npcShotVehicle
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcShotVehicle] - Event name
+   */
+  removeAllListeners(eventName: "npcShotVehicle"): void;
+
+  /**
+   * Removes all listeners for npcShotObject
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcShotObject] - Event name
+   */
+  removeAllListeners(eventName: "npcShotObject"): void;
+
+  /**
+   * Removes all listeners for npcShotPlayerObject
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcShotPlayerObject] - Event name
+   */
+  removeAllListeners(eventName: "npcShotPlayerObject"): void;
+
+  /**
+   * Removes all listeners for npcFinishNodePoint
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcFinishNodePoint] - Event name
+   */
+  removeAllListeners(eventName: "npcFinishNodePoint"): void;
+
+  /**
+   * Removes all listeners for npcFinishNode
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcFinishNode] - Event name
+   */
+  removeAllListeners(eventName: "npcFinishNode"): void;
+
+  /**
+   * Removes all listeners for npcChangeNode
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcChangeNode] - Event name
+   */
+  removeAllListeners(eventName: "npcChangeNode"): void;
+
+  /**
+   * Removes all listeners for npcFinishMovePath
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcFinishMovePath] - Event name
+   */
+  removeAllListeners(eventName: "npcFinishMovePath"): void;
+
+  /**
+   * Removes all listeners for npcFinishMovePathPoint
+   *
+   * @name omp.removeAllListeners
+   * @param {string} [eventName=npcFinishMovePathPoint] - Event name
+   */
+  removeAllListeners(eventName: "npcFinishMovePathPoint"): void;
+
+  /**
    * Removes all listeners for objectMove
    *
    * @name omp.removeAllListeners
@@ -3602,21 +4733,30 @@ interface IOMP {
    * @param eventName string
    * @param callback any
    */
-  on<TArgs extends any[] = any[]>(eventName: string, callback: (...args: TArgs) => any): void;
+  on<TArgs extends any[] = any[]>(
+    eventName: string,
+    callback: (...args: TArgs) => any
+  ): void;
 
   /**
    * General use for externally defined events
    * @param eventName string
    * @param callback any
    */
-  addListener<TArgs extends any[] = any[]>(eventName: string, callback: (...args: TArgs) => any): void;
+  addListener<TArgs extends any[] = any[]>(
+    eventName: string,
+    callback: (...args: TArgs) => any
+  ): void;
 
   /**
    * General use for externally defined events
    * @param eventName string
    * @param callback any
    */
-  removeListener<TArgs extends any[] = any[]>(eventName: string, callback: (...args: TArgs) => any): void;
+  removeListener<TArgs extends any[] = any[]>(
+    eventName: string,
+    callback: (...args: TArgs) => any
+  ): void;
 
   /**
    * General use for externally defined events
@@ -3677,6 +4817,11 @@ interface IOMP {
    * Menus
    */
   menus: Pool<Menu>;
+
+  /**
+   * NPCs
+   */
+  npcs: Pool<NPC>;
 
   /**
    * Player Objects
