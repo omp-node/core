@@ -109,6 +109,20 @@ export default class NPC {
   }
 
   /**
+   * @method getPlayer
+   * @returns {Player}
+   * @throws Will throw an error if the NPC is invalid
+   */
+  getPlayer(): Player | undefined {
+    if (!this.ptr) {
+      throw new Error("NPC instance is not valid");
+    }
+
+    const result = internal_omp.NPC.GetPlayer(this.ptr);
+    return omp.players.get(result.ret);
+  }
+
+  /**
    * @method spawn
    * @returns {boolean}
    * @throws Will throw an error if the NPC is invalid

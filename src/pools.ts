@@ -1,18 +1,5 @@
 import Player from "./components/Player.js";
 
-type Constructible<Params extends readonly any[] = any[], T = any> = new (
-  ...params: Params
-) => T;
-
-class ClassCreator {
-  static create<T extends Constructible>(
-    constructible: T,
-    ...params: ConstructorParameters<T>
-  ): InstanceType<T> {
-    return new constructible(...params);
-  }
-}
-
 export class Pool<T> {
   /**
    * @type {Map<number, T>}

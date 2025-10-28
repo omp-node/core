@@ -11,7 +11,7 @@ import {
   TextDraw,
   TextLabel,
   Vehicle,
-  NPC
+  NPC,
 } from "./components";
 import { PerPlayerEntityPool, PlayerPool, Pool } from "./pools";
 
@@ -378,7 +378,7 @@ interface IOMP {
    */
   on(
     eventName: "npcDeath",
-    callback: (npc: NPC, killer: Player, reason: number) => any
+    callback: (npc: NPC, killer: Player | undefined, reason: number) => any
   ): void;
 
   /**
@@ -1722,7 +1722,7 @@ interface IOMP {
    */
   addListener(
     eventName: "npcDeath",
-    callback: (npc: NPC, killer: Player, reason: number) => any
+    callback: (npc: NPC, killer: Player | undefined, reason: number) => any
   ): void;
 
   /**
@@ -3063,7 +3063,7 @@ interface IOMP {
    */
   removeListener(
     eventName: "npcDeath",
-    callback: (npc: NPC, killer: Player, reason: number) => any
+    callback: (npc: NPC, killer: Player | undefined, reason: number) => any
   ): void;
 
   /**

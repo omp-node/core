@@ -4,6 +4,7 @@ import {
   Actor,
   GangZone,
   Menu,
+  NPC,
   ObjectMp,
   Pickup,
   Player,
@@ -16,6 +17,31 @@ import {
 } from "./components";
 import EventEmitter from "events";
 import { internal_omp, omp } from "./globals.js";
+
+const processEventListeners = async (name: string, badRet: number, ...args) => {
+  const listeners = internal_omp.eventEmitter.listeners(name);
+  let result = true;
+  for (const listener of listeners) {
+    result = await listener(...args);
+    if (typeof result === "boolean" || typeof result === "number") {
+      switch (badRet) {
+        case 1:
+          if (!result) {
+            return false;
+          }
+          break;
+        case 2:
+          if (result) {
+            return true;
+          }
+          break;
+        case 0:
+        default:
+          break;
+      }
+    }
+  }
+};
 
 /**
  * @type {EventEmitter}
@@ -166,6 +192,22 @@ export const initializeEvents = () => {
     omp.menus.remove_INTERNAL_UNSAFE(entity);
   });
 
+  // Internal npcPoolEntryCreate event handler
+  eventEmitter_raw.on("npcPoolEntryCreate", async (_, entityId) => {
+    const entity = omp.npcs.at(entityId);
+    if (entity) {
+      omp.npcs.remove_INTERNAL_UNSAFE(entity);
+    }
+
+    omp.npcs.add_INTERNAL_UNSAFE(new NPC(entityId));
+  });
+
+  // Internal npcPoolEntryDestroy event handler
+  eventEmitter_raw.on("npcPoolEntryDestroy", async (_, entityId) => {
+    const entity = omp.npcs.at(entityId);
+    omp.npcs.remove_INTERNAL_UNSAFE(entity);
+  });
+
   // Internal playerObjectPoolEntryCreate event handler
   eventEmitter_raw.on(
     "playerObjectPoolEntryCreate",
@@ -184,13 +226,16 @@ export const initializeEvents = () => {
   );
 
   // Internal playerObjectPoolEntryDestroy event handler
-  eventEmitter_raw.on("playerObjectPoolEntryDestroy", async (_, entityId) => {
-    const playerPool = omp.playerObjects.at(playerId);
-    if (playerPool) {
-      const entity = playerPool.at(entityId);
-      playerPool.remove_INTERNAL_UNSAFE(entity);
+  eventEmitter_raw.on(
+    "playerObjectPoolEntryDestroy",
+    async (_, playerId, entityId) => {
+      const playerPool = omp.playerObjects.at(playerId);
+      if (playerPool) {
+        const entity = playerPool.at(entityId);
+        playerPool.remove_INTERNAL_UNSAFE(entity);
+      }
     }
-  });
+  );
 
   // Internal playerTextLabelPoolEntryCreate event handler
   eventEmitter_raw.on(
@@ -212,7 +257,7 @@ export const initializeEvents = () => {
   // Internal playerTextLabelPoolEntryDestroy event handler
   eventEmitter_raw.on(
     "playerTextLabelPoolEntryDestroy",
-    async (_, entityId) => {
+    async (_, playerId, entityId) => {
       const playerPool = omp.playerTextLabels.at(playerId);
       if (playerPool) {
         const entity = playerPool.at(entityId);
@@ -239,13 +284,16 @@ export const initializeEvents = () => {
   );
 
   // Internal playerTextDrawPoolEntryDestroy event handler
-  eventEmitter_raw.on("playerTextDrawPoolEntryDestroy", async (_, entityId) => {
-    const playerPool = omp.playerTextDraws.at(playerId);
-    if (playerPool) {
-      const entity = playerPool.at(entityId);
-      playerPool.remove_INTERNAL_UNSAFE(entity);
+  eventEmitter_raw.on(
+    "playerTextDrawPoolEntryDestroy",
+    async (_, playerId, entityId) => {
+      const playerPool = omp.playerTextDraws.at(playerId);
+      if (playerPool) {
+        const entity = playerPool.at(entityId);
+        playerPool.remove_INTERNAL_UNSAFE(entity);
+      }
     }
-  });
+  );
 
   // Internal playerGiveDamageActor event handler
   eventEmitter_raw.on(
@@ -263,30 +311,16 @@ export const initializeEvents = () => {
           "Unable to cast actor to Actor for playerGiveDamageActor. Value: " +
             actor
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerGiveDamageActor"
+
+      return processEventListeners(
+        "playerGiveDamageActor",
+        badRet,
+        player_,
+        actor_,
+        amount,
+        weapon,
+        part
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, actor_, amount, weapon, part);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -303,28 +337,8 @@ export const initializeEvents = () => {
         "Unable to cast forPlayer to Player for actorStreamIn. Value: " +
           forPlayer
       );
-    const listeners = __internal_omp.eventEmitter.listeners("actorStreamIn");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(actor_, forPlayer_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("actorStreamIn", badRet, actor_, forPlayer_);
   });
 
   // Internal actorStreamOut event handler
@@ -340,28 +354,8 @@ export const initializeEvents = () => {
         "Unable to cast forPlayer to Player for actorStreamOut. Value: " +
           forPlayer
       );
-    const listeners = __internal_omp.eventEmitter.listeners("actorStreamOut");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(actor_, forPlayer_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("actorStreamOut", badRet, actor_, forPlayer_);
   });
 
   // Internal playerEnterCheckpoint event handler
@@ -372,30 +366,8 @@ export const initializeEvents = () => {
         "Unable to cast player to Player for playerEnterCheckpoint. Value: " +
           player
       );
-    const listeners = __internal_omp.eventEmitter.listeners(
-      "playerEnterCheckpoint"
-    );
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerEnterCheckpoint", badRet, player_);
   });
 
   // Internal playerLeaveCheckpoint event handler
@@ -406,30 +378,8 @@ export const initializeEvents = () => {
         "Unable to cast player to Player for playerLeaveCheckpoint. Value: " +
           player
       );
-    const listeners = __internal_omp.eventEmitter.listeners(
-      "playerLeaveCheckpoint"
-    );
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerLeaveCheckpoint", badRet, player_);
   });
 
   // Internal playerEnterRaceCheckpoint event handler
@@ -440,30 +390,8 @@ export const initializeEvents = () => {
         "Unable to cast player to Player for playerEnterRaceCheckpoint. Value: " +
           player
       );
-    const listeners = __internal_omp.eventEmitter.listeners(
-      "playerEnterRaceCheckpoint"
-    );
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerEnterRaceCheckpoint", badRet, player_);
   });
 
   // Internal playerLeaveRaceCheckpoint event handler
@@ -474,30 +402,8 @@ export const initializeEvents = () => {
         "Unable to cast player to Player for playerLeaveRaceCheckpoint. Value: " +
           player
       );
-    const listeners = __internal_omp.eventEmitter.listeners(
-      "playerLeaveRaceCheckpoint"
-    );
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerLeaveRaceCheckpoint", badRet, player_);
   });
 
   // Internal playerRequestClass event handler
@@ -508,111 +414,37 @@ export const initializeEvents = () => {
         "Unable to cast player to Player for playerRequestClass. Value: " +
           player
       );
-    const listeners =
-      __internal_omp.eventEmitter.listeners("playerRequestClass");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, classId);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners(
+      "playerRequestClass",
+      badRet,
+      player_,
+      classId
+    );
   });
 
   // Internal consoleText event handler
   eventEmitter_raw.on("consoleText", async (badRet, command, parameters) => {
-    const listeners = __internal_omp.eventEmitter.listeners("consoleText");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(command, parameters);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+    return processEventListeners("consoleText", badRet, command, parameters);
   });
 
   // Internal rconLoginAttempt event handler
   eventEmitter_raw.on(
     "rconLoginAttempt",
     async (badRet, address, password, success) => {
-      const listeners =
-        __internal_omp.eventEmitter.listeners("rconLoginAttempt");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(address, password, success);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+      return processEventListeners(
+        "rconLoginAttempt",
+        badRet,
+        address,
+        password,
+        success
+      );
     }
   );
 
   // Internal tick event handler
   eventEmitter_raw.on("tick", async (badRet, elapsed) => {
-    const listeners = __internal_omp.eventEmitter.listeners("tick");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(elapsed);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+    return processEventListeners("tick", badRet, elapsed);
   });
 
   // Internal playerFinishedDownloading event handler
@@ -625,30 +457,13 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerFinishedDownloading. Value: " +
             player
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerFinishedDownloading"
+
+      return processEventListeners(
+        "playerFinishedDownloading",
+        badRet,
+        player_,
+        vw
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, vw);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -662,30 +477,14 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerRequestDownload. Value: " +
             player
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerRequestDownload"
+
+      return processEventListeners(
+        "playerRequestDownload",
+        badRet,
+        player_,
+        type,
+        checksum
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, type, checksum);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -698,34 +497,16 @@ export const initializeEvents = () => {
         throw new Error(
           "Unable to cast player to Player for dialogResponse. Value: " + player
         );
-      const listeners = __internal_omp.eventEmitter.listeners("dialogResponse");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(
-          player_,
-          dialogId,
-          response,
-          listItem,
-          inputText
-        );
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "dialogResponse",
+        badRet,
+        player_,
+        dialogId,
+        response,
+        listItem,
+        inputText
+      );
     }
   );
 
@@ -743,30 +524,8 @@ export const initializeEvents = () => {
         "Unable to cast zone to GangZone for playerEnterGangZone. Value: " +
           zone
       );
-    const listeners = __internal_omp.eventEmitter.listeners(
-      "playerEnterGangZone"
-    );
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, zone_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerEnterGangZone", badRet, player_, zone_);
   });
 
   // Internal playerLeaveGangZone event handler
@@ -783,30 +542,8 @@ export const initializeEvents = () => {
         "Unable to cast zone to GangZone for playerLeaveGangZone. Value: " +
           zone
       );
-    const listeners = __internal_omp.eventEmitter.listeners(
-      "playerLeaveGangZone"
-    );
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, zone_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerLeaveGangZone", badRet, player_, zone_);
   });
 
   // Internal playerClickGangZone event handler
@@ -823,30 +560,8 @@ export const initializeEvents = () => {
         "Unable to cast zone to GangZone for playerClickGangZone. Value: " +
           zone
       );
-    const listeners = __internal_omp.eventEmitter.listeners(
-      "playerClickGangZone"
-    );
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, zone_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerClickGangZone", badRet, player_, zone_);
   });
 
   // Internal playerSelectedMenuRow event handler
@@ -857,30 +572,8 @@ export const initializeEvents = () => {
         "Unable to cast player to Player for playerSelectedMenuRow. Value: " +
           player
       );
-    const listeners = __internal_omp.eventEmitter.listeners(
-      "playerSelectedMenuRow"
-    );
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, row);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerSelectedMenuRow", badRet, player_, row);
   });
 
   // Internal playerExitedMenu event handler
@@ -890,28 +583,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast player to Player for playerExitedMenu. Value: " + player
       );
-    const listeners = __internal_omp.eventEmitter.listeners("playerExitedMenu");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerExitedMenu", badRet, player_);
   });
 
   // Internal objectMove event handler
@@ -921,28 +594,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast object to Object for objectMove. Value: " + object
       );
-    const listeners = __internal_omp.eventEmitter.listeners("objectMove");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(object_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("objectMove", badRet, object_);
   });
 
   // Internal playerObjectMove event handler
@@ -957,28 +610,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast object to Object for playerObjectMove. Value: " + object
       );
-    const listeners = __internal_omp.eventEmitter.listeners("playerObjectMove");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, object_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerObjectMove", badRet, player_, object_);
   });
 
   // Internal playerEditObject event handler
@@ -1008,39 +641,20 @@ export const initializeEvents = () => {
           "Unable to cast object to Object for playerEditObject. Value: " +
             object
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("playerEditObject");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(
-          player_,
-          object_,
-          response,
-          offsetX,
-          offsetY,
-          offsetZ,
-          rotationX,
-          rotationY,
-          rotationZ
-        );
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "playerEditObject",
+        badRet,
+        player_,
+        object_,
+        response,
+        offsetX,
+        offsetY,
+        offsetZ,
+        rotationX,
+        rotationY,
+        rotationZ
+      );
     }
   );
 
@@ -1071,40 +685,20 @@ export const initializeEvents = () => {
           "Unable to cast object to Object for playerEditPlayerObject. Value: " +
             object
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerEditPlayerObject"
+
+      return processEventListeners(
+        "playerEditPlayerObject",
+        badRet,
+        player_,
+        object_,
+        response,
+        offsetX,
+        offsetY,
+        offsetZ,
+        rotationX,
+        rotationY,
+        rotationZ
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(
-          player_,
-          object_,
-          response,
-          offsetX,
-          offsetY,
-          offsetZ,
-          rotationX,
-          rotationY,
-          rotationZ
-        );
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -1134,45 +728,25 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerEditAttachedObject. Value: " +
             player
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerEditAttachedObject"
+
+      return processEventListeners(
+        "playerEditAttachedObject",
+        badRet,
+        player_,
+        saved,
+        index,
+        model,
+        bone,
+        offsetX,
+        offsetY,
+        offsetZ,
+        rotationX,
+        rotationY,
+        rotationZ,
+        scaleX,
+        scaleY,
+        scaleZ
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(
-          player_,
-          saved,
-          index,
-          model,
-          bone,
-          offsetX,
-          offsetY,
-          offsetZ,
-          rotationX,
-          rotationY,
-          rotationZ,
-          scaleX,
-          scaleY,
-          scaleZ
-        );
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -1192,29 +766,17 @@ export const initializeEvents = () => {
           "Unable to cast object to Object for playerSelectObject. Value: " +
             object
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("playerSelectObject");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, object_, model, x, y, z);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "playerSelectObject",
+        badRet,
+        player_,
+        object_,
+        model,
+        x,
+        y,
+        z
+      );
     }
   );
 
@@ -1234,30 +796,17 @@ export const initializeEvents = () => {
           "Unable to cast object to Object for playerSelectPlayerObject. Value: " +
             object
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerSelectPlayerObject"
+
+      return processEventListeners(
+        "playerSelectPlayerObject",
+        badRet,
+        player_,
+        object_,
+        model,
+        x,
+        y,
+        z
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, object_, model, x, y, z);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -1275,29 +824,13 @@ export const initializeEvents = () => {
         "Unable to cast pickup to Pickup for playerPickUpPickup. Value: " +
           pickup
       );
-    const listeners =
-      __internal_omp.eventEmitter.listeners("playerPickUpPickup");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, pickup_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners(
+      "playerPickUpPickup",
+      badRet,
+      player_,
+      pickup_
+    );
   });
 
   // Internal playerCancelTextDrawSelection event handler
@@ -1310,30 +843,12 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerCancelTextDrawSelection. Value: " +
             player
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerCancelTextDrawSelection"
+
+      return processEventListeners(
+        "playerCancelTextDrawSelection",
+        badRet,
+        player_
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -1347,30 +862,12 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerCancelPlayerTextDrawSelection. Value: " +
             player
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerCancelPlayerTextDrawSelection"
+
+      return processEventListeners(
+        "playerCancelPlayerTextDrawSelection",
+        badRet,
+        player_
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -1390,30 +887,13 @@ export const initializeEvents = () => {
           "Unable to cast textdraw to TextDraw for playerClickTextDraw. Value: " +
             textdraw
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerClickTextDraw"
+
+      return processEventListeners(
+        "playerClickTextDraw",
+        badRet,
+        player_,
+        textdraw_
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, textdraw_);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -1433,30 +913,13 @@ export const initializeEvents = () => {
           "Unable to cast textdraw to TextDraw for playerClickPlayerTextDraw. Value: " +
             textdraw
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerClickPlayerTextDraw"
+
+      return processEventListeners(
+        "playerClickPlayerTextDraw",
+        badRet,
+        player_,
+        textdraw_
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, textdraw_);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -1464,7 +927,7 @@ export const initializeEvents = () => {
   eventEmitter_raw.on("playerConnect", async (badRet, player) => {
     let player_ = omp.players.get(player);
     if (player_ === undefined) {
-      const result = __internal_omp.Player.GetID(player);
+      const result = internal_omp.Player.GetID(player);
       const playerEntity = new Player(result.ret);
       if (playerEntity === undefined)
         throw new Error(
@@ -1481,28 +944,7 @@ export const initializeEvents = () => {
         "Unable to cast player to Player for playerConnect. Value: " + player
       );
 
-    const listeners = __internal_omp.eventEmitter.listeners("playerConnect");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+    return processEventListeners("playerConnect", badRet, player_);
   });
 
   // Internal playerSpawn event handler
@@ -1512,28 +954,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast player to Player for playerSpawn. Value: " + player
       );
-    const listeners = __internal_omp.eventEmitter.listeners("playerSpawn");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerSpawn", badRet, player_);
   });
 
   // Internal playerCommandText event handler
@@ -1544,29 +966,8 @@ export const initializeEvents = () => {
         "Unable to cast player to Player for playerCommandText. Value: " +
           player
       );
-    const listeners =
-      __internal_omp.eventEmitter.listeners("playerCommandText");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, command);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerCommandText", badRet, player_, command);
   });
 
   // Internal playerKeyStateChange event handler
@@ -1579,30 +980,14 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerKeyStateChange. Value: " +
             player
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerKeyStateChange"
+
+      return processEventListeners(
+        "playerKeyStateChange",
+        badRet,
+        player_,
+        newKeys,
+        oldKeys
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, newKeys, oldKeys);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -1610,7 +995,7 @@ export const initializeEvents = () => {
   eventEmitter_raw.on(
     "incomingConnection",
     async (badRet, player, ipAddress, port) => {
-      const result = __internal_omp.Player.GetID(player);
+      const result = internal_omp.Player.GetID(player);
       const playerEntity = new Player(result.ret);
       if (playerEntity === undefined)
         throw new Error(
@@ -1621,29 +1006,13 @@ export const initializeEvents = () => {
       omp.players.add_INTERNAL_UNSAFE(playerEntity);
       const player_ = playerEntity;
 
-      const listeners =
-        __internal_omp.eventEmitter.listeners("incomingConnection");
-      let eventResult = true;
-      for (const listener of listeners) {
-        eventResult = await listener(player_, ipAddress, port);
-        if (typeof eventResult === "boolean" || typeof eventResult === "number") {
-          switch (badRet) {
-            case 1:
-              if (!eventResult) {
-                return false;
-              }
-              break;
-            case 2:
-              if (eventResult) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+      return processEventListeners(
+        "incomingConnection",
+        badRet,
+        player_,
+        ipAddress,
+        port
+      );
     }
   );
 
@@ -1654,28 +1023,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast player to Player for playerDisconnect. Value: " + player
       );
-    const listeners = __internal_omp.eventEmitter.listeners("playerDisconnect");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, reason);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    await processEventListeners("playerDisconnect", badRet, player_, reason);
     omp.players.remove_INTERNAL_UNSAFE(player_);
   });
 
@@ -1687,29 +1036,8 @@ export const initializeEvents = () => {
         "Unable to cast player to Player for playerRequestSpawn. Value: " +
           player
       );
-    const listeners =
-      __internal_omp.eventEmitter.listeners("playerRequestSpawn");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerRequestSpawn", badRet, player_);
   });
 
   // Internal playerStreamIn event handler
@@ -1725,28 +1053,8 @@ export const initializeEvents = () => {
         "Unable to cast forPlayer to Player for playerStreamIn. Value: " +
           forPlayer
       );
-    const listeners = __internal_omp.eventEmitter.listeners("playerStreamIn");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, forPlayer_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerStreamIn", badRet, player_, forPlayer_);
   });
 
   // Internal playerStreamOut event handler
@@ -1762,28 +1070,13 @@ export const initializeEvents = () => {
         "Unable to cast forPlayer to Player for playerStreamOut. Value: " +
           forPlayer
       );
-    const listeners = __internal_omp.eventEmitter.listeners("playerStreamOut");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, forPlayer_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners(
+      "playerStreamOut",
+      badRet,
+      player_,
+      forPlayer_
+    );
   });
 
   // Internal playerText event handler
@@ -1793,28 +1086,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast player to Player for playerText. Value: " + player
       );
-    const listeners = __internal_omp.eventEmitter.listeners("playerText");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, text);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerText", badRet, player_, text);
   });
 
   // Internal playerShotMissed event handler
@@ -1827,29 +1100,16 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerShotMissed. Value: " +
             player
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("playerShotMissed");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, weapon, x, y, z);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "playerShotMissed",
+        badRet,
+        player_,
+        weapon,
+        x,
+        y,
+        z
+      );
     }
   );
 
@@ -1869,29 +1129,17 @@ export const initializeEvents = () => {
           "Unable to cast target to Player for playerShotPlayer. Value: " +
             target
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("playerShotPlayer");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, target_, weapon, x, y, z);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "playerShotPlayer",
+        badRet,
+        player_,
+        target_,
+        weapon,
+        x,
+        y,
+        z
+      );
     }
   );
 
@@ -1905,35 +1153,23 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerShotVehicle. Value: " +
             player
         );
-      const target_ = omp.players.get(target);
+      const target_ = omp.vehicles.get(target);
       if (target_ === undefined)
         throw new Error(
-          "Unable to cast target to Player for playerShotVehicle. Value: " +
+          "Unable to cast target to Vehicle for playerShotVehicle. Value: " +
             target
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("playerShotVehicle");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, target_, weapon, x, y, z);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "playerShotVehicle",
+        badRet,
+        player_,
+        target_,
+        weapon,
+        x,
+        y,
+        z
+      );
     }
   );
 
@@ -1947,35 +1183,23 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerShotObject. Value: " +
             player
         );
-      const target_ = omp.players.get(target);
+      const target_ = omp.objects.get(target);
       if (target_ === undefined)
         throw new Error(
-          "Unable to cast target to Player for playerShotObject. Value: " +
+          "Unable to cast target to Object for playerShotObject. Value: " +
             target
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("playerShotObject");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, target_, weapon, x, y, z);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "playerShotObject",
+        badRet,
+        player_,
+        target_,
+        weapon,
+        x,
+        y,
+        z
+      );
     }
   );
 
@@ -1989,36 +1213,31 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerShotPlayerObject. Value: " +
             player
         );
-      const target_ = omp.players.get(target);
-      if (target_ === undefined)
+
+      const playerObjects = omp.playerObjects.at(player_.getID());
+      if (playerObjects === undefined)
         throw new Error(
-          "Unable to cast target to Player for playerShotPlayerObject. Value: " +
+          "Unable to get player's PlayerObject pool for playerShotPlayerObject. Value: " +
             target
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerShotPlayerObject"
+
+      const target_ = playerObjects.get(target);
+      if (target_ === undefined)
+        throw new Error(
+          "Unable to cast target to PlayerObject for playerShotPlayerObject. Value: " +
+            target
+        );
+
+      return processEventListeners(
+        "playerShotPlayerObject",
+        badRet,
+        player_,
+        target_,
+        weapon,
+        x,
+        y,
+        z
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, target_, weapon, x, y, z);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -2032,28 +1251,13 @@ export const initializeEvents = () => {
 
     const killer_ = omp.players.get(killer);
 
-    const listeners = __internal_omp.eventEmitter.listeners("playerDeath");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, killer_, reason);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+    return processEventListeners(
+      "playerDeath",
+      badRet,
+      player_,
+      killer_,
+      reason
+    );
   });
 
   // Internal playerTakeDamage event handler
@@ -2069,29 +1273,15 @@ export const initializeEvents = () => {
 
       const from_ = omp.players.get(from);
 
-      const listeners =
-        __internal_omp.eventEmitter.listeners("playerTakeDamage");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, from_, amount, weapon, bodypart);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+      return processEventListeners(
+        "playerTakeDamage",
+        badRet,
+        player_,
+        from_,
+        amount,
+        weapon,
+        bodypart
+      );
     }
   );
 
@@ -2110,29 +1300,16 @@ export const initializeEvents = () => {
         throw new Error(
           "Unable to cast to to Player for playerGiveDamage. Value: " + to
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("playerGiveDamage");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, to_, amount, weapon, bodypart);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "playerGiveDamage",
+        badRet,
+        player_,
+        to_,
+        amount,
+        weapon,
+        bodypart
+      );
     }
   );
 
@@ -2146,30 +1323,14 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerInteriorChange. Value: " +
             player
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "playerInteriorChange"
+
+      return processEventListeners(
+        "playerInteriorChange",
+        badRet,
+        player_,
+        newInterior,
+        oldInterior
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, newInterior, oldInterior);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -2183,29 +1344,14 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for playerStateChange. Value: " +
             player
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("playerStateChange");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, newState, oldState);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "playerStateChange",
+        badRet,
+        player_,
+        newState,
+        oldState
+      );
     }
   );
 
@@ -2216,28 +1362,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast player to Player for playerClickMap. Value: " + player
       );
-    const listeners = __internal_omp.eventEmitter.listeners("playerClickMap");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, x, y, z);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerClickMap", badRet, player_, x, y, z);
   });
 
   // Internal playerClickPlayer event handler
@@ -2256,29 +1382,14 @@ export const initializeEvents = () => {
           "Unable to cast clicked to Player for playerClickPlayer. Value: " +
             clicked
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("playerClickPlayer");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, clicked_, source);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "playerClickPlayer",
+        badRet,
+        player_,
+        clicked_,
+        source
+      );
     }
   );
 
@@ -2292,30 +1403,15 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for clientCheckResponse. Value: " +
             player
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "clientCheckResponse"
+
+      return processEventListeners(
+        "clientCheckResponse",
+        badRet,
+        player_,
+        actionType,
+        address,
+        result_
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, actionType, address, result_);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -2326,28 +1422,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast player to Player for playerUpdate. Value: " + player
       );
-    const listeners = __internal_omp.eventEmitter.listeners("playerUpdate");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("playerUpdate", badRet, player_);
   });
 
   // Internal vehicleStreamIn event handler
@@ -2363,28 +1439,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast player to Player for vehicleStreamIn. Value: " + player
       );
-    const listeners = __internal_omp.eventEmitter.listeners("vehicleStreamIn");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(vehicle_, player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("vehicleStreamIn", badRet, vehicle_, player_);
   });
 
   // Internal vehicleStreamOut event handler
@@ -2400,28 +1456,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast player to Player for vehicleStreamOut. Value: " + player
       );
-    const listeners = __internal_omp.eventEmitter.listeners("vehicleStreamOut");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(vehicle_, player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("vehicleStreamOut", badRet, vehicle_, player_);
   });
 
   // Internal vehicleDeath event handler
@@ -2436,28 +1472,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast player to Player for vehicleDeath. Value: " + player
       );
-    const listeners = __internal_omp.eventEmitter.listeners("vehicleDeath");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(vehicle_, player_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("vehicleDeath", badRet, vehicle_, player_);
   });
 
   // Internal playerEnterVehicle event handler
@@ -2476,29 +1492,14 @@ export const initializeEvents = () => {
           "Unable to cast vehicle to Vehicle for playerEnterVehicle. Value: " +
             vehicle
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("playerEnterVehicle");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, vehicle_, passenger);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "playerEnterVehicle",
+        badRet,
+        player_,
+        vehicle_,
+        passenger
+      );
     }
   );
 
@@ -2516,29 +1517,13 @@ export const initializeEvents = () => {
         "Unable to cast vehicle to Vehicle for playerExitVehicle. Value: " +
           vehicle
       );
-    const listeners =
-      __internal_omp.eventEmitter.listeners("playerExitVehicle");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, vehicle_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners(
+      "playerExitVehicle",
+      badRet,
+      player_,
+      vehicle_
+    );
   });
 
   // Internal vehicleDamageStatusUpdate event handler
@@ -2557,30 +1542,13 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for vehicleDamageStatusUpdate. Value: " +
             player
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "vehicleDamageStatusUpdate"
+
+      return processEventListeners(
+        "vehicleDamageStatusUpdate",
+        badRet,
+        vehicle_,
+        player_
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(vehicle_, player_);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -2600,29 +1568,14 @@ export const initializeEvents = () => {
           "Unable to cast vehicle to Vehicle for vehiclePaintJob. Value: " +
             vehicle
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("vehiclePaintJob");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, vehicle_, paintJob);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "vehiclePaintJob",
+        badRet,
+        player_,
+        vehicle_,
+        paintJob
+      );
     }
   );
 
@@ -2640,28 +1593,14 @@ export const initializeEvents = () => {
         throw new Error(
           "Unable to cast vehicle to Vehicle for vehicleMod. Value: " + vehicle
         );
-      const listeners = __internal_omp.eventEmitter.listeners("vehicleMod");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, vehicle_, component);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "vehicleMod",
+        badRet,
+        player_,
+        vehicle_,
+        component
+      );
     }
   );
 
@@ -2680,28 +1619,15 @@ export const initializeEvents = () => {
           "Unable to cast vehicle to Vehicle for vehicleRespray. Value: " +
             vehicle
         );
-      const listeners = __internal_omp.eventEmitter.listeners("vehicleRespray");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, vehicle_, color1, color2);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "vehicleRespray",
+        badRet,
+        player_,
+        vehicle_,
+        color1,
+        color2
+      );
     }
   );
 
@@ -2715,29 +1641,14 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for enterExitModShop. Value: " +
             player
         );
-      const listeners =
-        __internal_omp.eventEmitter.listeners("enterExitModShop");
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, enterexit, interiorId);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+
+      return processEventListeners(
+        "enterExitModShop",
+        badRet,
+        player_,
+        enterexit,
+        interiorId
+      );
     }
   );
 
@@ -2748,28 +1659,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast vehicle to Vehicle for vehicleSpawn. Value: " + vehicle
       );
-    const listeners = __internal_omp.eventEmitter.listeners("vehicleSpawn");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(vehicle_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("vehicleSpawn", badRet, vehicle_);
   });
 
   // Internal unoccupiedVehicleUpdate event handler
@@ -2799,40 +1690,20 @@ export const initializeEvents = () => {
           "Unable to cast player to Player for unoccupiedVehicleUpdate. Value: " +
             player
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "unoccupiedVehicleUpdate"
+
+      return processEventListeners(
+        "unoccupiedVehicleUpdate",
+        badRet,
+        vehicle_,
+        player_,
+        seat,
+        posX,
+        posY,
+        posZ,
+        velocityX,
+        velocityY,
+        velocityZ
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(
-          vehicle_,
-          player_,
-          seat,
-          posX,
-          posY,
-          posZ,
-          velocityX,
-          velocityY,
-          velocityZ
-        );
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
     }
   );
 
@@ -2848,28 +1719,8 @@ export const initializeEvents = () => {
       throw new Error(
         "Unable to cast trailer to Vehicle for trailerUpdate. Value: " + trailer
       );
-    const listeners = __internal_omp.eventEmitter.listeners("trailerUpdate");
-    let result = true;
-    for (const listener of listeners) {
-      result = await listener(player_, trailer_);
-      if (typeof result === "boolean" || typeof result === "number") {
-        switch (badRet) {
-          case 1:
-            if (!result) {
-              return false;
-            }
-            break;
-          case 2:
-            if (result) {
-              return true;
-            }
-            break;
-          case 0:
-          default:
-            break;
-        }
-      }
-    }
+
+    return processEventListeners("trailerUpdate", badRet, player_, trailer_);
   });
 
   // Internal vehicleSirenStateChange event handler
@@ -2888,30 +1739,440 @@ export const initializeEvents = () => {
           "Unable to cast vehicle to Vehicle for vehicleSirenStateChange. Value: " +
             vehicle
         );
-      const listeners = __internal_omp.eventEmitter.listeners(
-        "vehicleSirenStateChange"
+
+      return processEventListeners(
+        "vehicleSirenStateChange",
+        badRet,
+        player_,
+        vehicle_,
+        sirenState
       );
-      let result = true;
-      for (const listener of listeners) {
-        result = await listener(player_, vehicle_, sirenState);
-        if (typeof result === "boolean" || typeof result === "number") {
-          switch (badRet) {
-            case 1:
-              if (!result) {
-                return false;
-              }
-              break;
-            case 2:
-              if (result) {
-                return true;
-              }
-              break;
-            case 0:
-            default:
-              break;
-          }
-        }
-      }
+    }
+  );
+
+  // Internal npcFinishMove event handler
+  eventEmitter_raw.on("npcFinishMove", async (badRet, npc) => {
+    const npc_ = omp.npcs.get(npc);
+    if (npc_ === undefined)
+      throw new Error(
+        "Unable to cast npc to NPC for npcFinishMove. Value: " + npc
+      );
+
+    return processEventListeners("npcFinishMove", badRet, npc_);
+  });
+
+  // Internal npcCreate event handler
+  eventEmitter_raw.on("npcCreate", async (badRet, npc) => {
+    const npc_ = omp.npcs.get(npc);
+    if (npc_ === undefined)
+      throw new Error("Unable to cast npc to NPC for npcCreate. Value: " + npc);
+
+    return processEventListeners("npcCreate", badRet, npc_);
+  });
+
+  // Internal npcDestroy event handler
+  eventEmitter_raw.on("npcDestroy", async (badRet, npc) => {
+    const npc_ = omp.npcs.get(npc);
+    if (npc_ === undefined)
+      throw new Error(
+        "Unable to cast npc to NPC for npcDestroy. Value: " + npc
+      );
+
+    return processEventListeners("npcDestroy", badRet, npc_);
+  });
+
+  // Internal npcWeaponStateChange event handler
+  eventEmitter_raw.on(
+    "npcWeaponStateChange",
+    async (badRet, npc, newState, oldState) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcWeaponStateChange. Value: " + npc
+        );
+
+      return processEventListeners(
+        "npcWeaponStateChange",
+        badRet,
+        npc_,
+        newState,
+        oldState
+      );
+    }
+  );
+
+  // Internal npcTakeDamage event handler
+  eventEmitter_raw.on(
+    "npcTakeDamage",
+    async (badRet, npc, damager, damage, weapon, bodyPart) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcTakeDamage. Value: " + npc
+        );
+
+      const damager_ = omp.players.get(damager);
+      if (damager_ === undefined)
+        throw new Error(
+          "Unable to cast damager to Player for npcTakeDamage. Value: " +
+            damager
+        );
+
+      return processEventListeners(
+        "npcTakeDamage",
+        badRet,
+        npc_,
+        damager_,
+        damage,
+        weapon,
+        bodyPart
+      );
+    }
+  );
+
+  // Internal npcGiveDamage event handler
+  eventEmitter_raw.on(
+    "npcGiveDamage",
+    async (badRet, npc, damaged, damage, weapon, bodyPart) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcGiveDamage. Value: " + npc
+        );
+
+      const damaged_ = omp.players.get(damaged);
+      if (damaged_ === undefined)
+        throw new Error(
+          "Unable to cast damaged to Player for npcGiveDamage. Value: " +
+            damaged
+        );
+
+      return processEventListeners(
+        "npcGiveDamage",
+        badRet,
+        npc_,
+        damaged_,
+        damage,
+        weapon,
+        bodyPart
+      );
+    }
+  );
+
+  // Internal npcDeath event handler
+  eventEmitter_raw.on("npcDeath", async (badRet, npc, killer, reason) => {
+    const npc_ = omp.npcs.get(npc);
+    if (npc_ === undefined)
+      throw new Error("Unable to cast npc to NPC for npcDeath. Value: " + npc);
+
+    const killer_ = omp.players.get(killer);
+
+    return processEventListeners("npcDeath", badRet, npc_, killer_, reason);
+  });
+
+  // Internal npcSpawn event handler
+  eventEmitter_raw.on("npcSpawn", async (badRet, npc) => {
+    const npc_ = omp.npcs.get(npc);
+    if (npc_ === undefined)
+      throw new Error("Unable to cast npc to NPC for npcSpawn. Value: " + npc);
+
+    return processEventListeners("npcSpawn", badRet, npc_);
+  });
+
+  // Internal npcRespawn event handler
+  eventEmitter_raw.on("npcRespawn", async (badRet, npc) => {
+    const npc_ = omp.npcs.get(npc);
+    if (npc_ === undefined)
+      throw new Error(
+        "Unable to cast npc to NPC for npcRespawn. Value: " + npc
+      );
+
+    return processEventListeners("npcRespawn", badRet, npc_);
+  });
+
+  // Internal npcPlaybackStart event handler
+  eventEmitter_raw.on("npcPlaybackStart", async (badRet, npc, recordId) => {
+    const npc_ = omp.npcs.get(npc);
+    if (npc_ === undefined)
+      throw new Error(
+        "Unable to cast npc to NPC for npcPlaybackStart. Value: " + npc
+      );
+
+    return processEventListeners("npcPlaybackStart", badRet, npc_, recordId);
+  });
+
+  // Internal npcPlaybackEnd event handler
+  eventEmitter_raw.on("npcPlaybackEnd", async (badRet, npc, recordId) => {
+    const npc_ = omp.npcs.get(npc);
+    if (npc_ === undefined)
+      throw new Error(
+        "Unable to cast npc to NPC for npcPlaybackEnd. Value: " + npc
+      );
+
+    return processEventListeners("npcPlaybackEnd", badRet, npc_, recordId);
+  });
+
+  // Internal npcShotMissed event handler
+  eventEmitter_raw.on(
+    "npcShotMissed",
+    async (badRet, npc, weapon, offsetX, offsetY, offsetZ) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcShotMissed. Value: " + npc
+        );
+
+      return processEventListeners(
+        "npcShotMissed",
+        badRet,
+        npc_,
+        weapon,
+        offsetX,
+        offsetY,
+        offsetZ
+      );
+    }
+  );
+
+  // Internal npcShotPlayer event handler
+  eventEmitter_raw.on(
+    "npcShotPlayer",
+    async (badRet, npc, player, weapon, offsetX, offsetY, offsetZ) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcShotPlayer. Value: " + npc
+        );
+
+      const player_ = omp.players.get(player);
+      if (player_ === undefined)
+        throw new Error(
+          "Unable to cast player to Player for npcShotPlayer. Value: " + player
+        );
+
+      return processEventListeners(
+        "npcShotPlayer",
+        badRet,
+        npc_,
+        player_,
+        weapon,
+        offsetX,
+        offsetY,
+        offsetZ
+      );
+    }
+  );
+
+  // Internal npcShotNPC event handler
+  eventEmitter_raw.on(
+    "npcShotNPC",
+    async (badRet, npc, npcTarget, weapon, offsetX, offsetY, offsetZ) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcShotNPC. Value: " + npc
+        );
+
+      const npcTarget_ = omp.npcs.get(npcTarget);
+      if (npcTarget_ === undefined)
+        throw new Error(
+          "Unable to cast npcTarget to NPC for npcShotNPC. Value: " + npcTarget
+        );
+
+      return processEventListeners(
+        "npcShotNPC",
+        badRet,
+        npc_,
+        npcTarget_,
+        weapon,
+        offsetX,
+        offsetY,
+        offsetZ
+      );
+    }
+  );
+
+  // Internal npcShotVehicle event handler
+  eventEmitter_raw.on(
+    "npcShotVehicle",
+    async (badRet, npc, vehicle, weapon, offsetX, offsetY, offsetZ) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcShotVehicle. Value: " + npc
+        );
+
+      const vehicle_ = omp.vehicles.get(vehicle);
+      if (vehicle_ === undefined)
+        throw new Error(
+          "Unable to cast vehicle to Vehicle for npcShotVehicle. Value: " +
+            vehicle
+        );
+
+      return processEventListeners(
+        "npcShotVehicle",
+        badRet,
+        npc_,
+        vehicle_,
+        weapon,
+        offsetX,
+        offsetY,
+        offsetZ
+      );
+    }
+  );
+
+  // Internal npcShotObject event handler
+  eventEmitter_raw.on(
+    "npcShotObject",
+    async (badRet, npc, object, weapon, offsetX, offsetY, offsetZ) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcShotObject. Value: " + npc
+        );
+
+      const object_ = omp.objects.get(object);
+      if (object_ === undefined)
+        throw new Error(
+          "Unable to cast object to Object for npcShotObject. Value: " + object
+        );
+
+      return processEventListeners(
+        "npcShotObject",
+        badRet,
+        npc_,
+        object_,
+        weapon,
+        offsetX,
+        offsetY,
+        offsetZ
+      );
+    }
+  );
+
+  // Internal npcShotPlayerObject event handler
+  eventEmitter_raw.on(
+    "npcShotPlayerObject",
+    async (badRet, npc, playerObject, weapon, offsetX, offsetY, offsetZ) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcShotPlayerObject. Value: " + npc
+        );
+
+      const playerInstance_ = npc_.getPlayer();
+      if (playerInstance_ === undefined)
+        throw new Error(
+          "Unable to NPC player instance in npcShotPlayerObject. Value: " + npc
+        );
+
+      const playerObjects = omp.playerObjects.at(playerInstance_.getID());
+      if (playerObjects === undefined)
+        throw new Error(
+          "Unable to get player's PlayerObject pool for playerShotPlayerObject. Value: " +
+            target
+        );
+
+      const playerObject_ = playerObjects.get(playerObject);
+      if (playerObject_ === undefined)
+        throw new Error(
+          "Unable to cast playerObject to PlayerObject for npcShotPlayerObject. Value: " +
+            playerObject
+        );
+
+      return processEventListeners(
+        "npcShotPlayerObject",
+        badRet,
+        npc_,
+        playerObject_,
+        weapon,
+        offsetX,
+        offsetY,
+        offsetZ
+      );
+    }
+  );
+
+  // Internal npcFinishNodePoint event handler
+  eventEmitter_raw.on(
+    "npcFinishNodePoint",
+    async (badRet, npc, nodeId, pointId) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcFinishNodePoint. Value: " + npc
+        );
+
+      return processEventListeners(
+        "npcFinishNodePoint",
+        badRet,
+        npc_,
+        nodeId,
+        pointId
+      );
+    }
+  );
+
+  // Internal npcFinishNode event handler
+  eventEmitter_raw.on("npcFinishNode", async (badRet, npc, nodeId) => {
+    const npc_ = omp.npcs.get(npc);
+    if (npc_ === undefined)
+      throw new Error(
+        "Unable to cast npc to NPC for npcFinishNode. Value: " + npc
+      );
+
+    return processEventListeners("npcFinishNode", badRet, npc_, nodeId);
+  });
+
+  // Internal npcChangeNode event handler
+  eventEmitter_raw.on(
+    "npcChangeNode",
+    async (badRet, npc, newNodeId, oldNodeId) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcChangeNode. Value: " + npc
+        );
+
+      return processEventListeners(
+        "npcChangeNode",
+        badRet,
+        npc_,
+        newNodeId,
+        oldNodeId
+      );
+    }
+  );
+
+  // Internal npcFinishMovePath event handler
+  eventEmitter_raw.on("npcFinishMovePath", async (badRet, npc, pathId) => {
+    const npc_ = omp.npcs.get(npc);
+    if (npc_ === undefined)
+      throw new Error(
+        "Unable to cast npc to NPC for npcFinishMovePath. Value: " + npc
+      );
+
+    return processEventListeners("npcFinishMovePath", badRet, npc_, pathId);
+  });
+
+  // Internal npcFinishMovePathPoint event handler
+  eventEmitter_raw.on(
+    "npcFinishMovePathPoint",
+    async (badRet, npc, pathId, pointId) => {
+      const npc_ = omp.npcs.get(npc);
+      if (npc_ === undefined)
+        throw new Error(
+          "Unable to cast npc to NPC for npcFinishMovePathPoint. Value: " + npc
+        );
+
+      return processEventListeners(
+        "npcFinishMovePathPoint",
+        badRet,
+        npc_,
+        pathId,
+        pointId
+      );
     }
   );
 };
