@@ -2150,7 +2150,7 @@ export default class Player {
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  attachCameraToPlayerObject(object: ObjectMp): boolean {
+  attachCameraToPlayerObject(object: PlayerObject): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
