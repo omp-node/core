@@ -229,12 +229,12 @@ export default class Core {
   }
 
   /**
-   * @method gameMode
+   * @method gameMode_SetText
    * @param {string} string
    * @returns {boolean}
    */
-  static gameMode(string: string): boolean {
-    const result = internal_omp.Core.GameMode(string);
+  static gameMode_SetText(string: string): boolean {
+    const result = internal_omp.Core.GameMode_SetText(string);
     return result.ret;
   }
 
