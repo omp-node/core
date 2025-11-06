@@ -1441,7 +1441,7 @@ export default class Player {
     }
 
     const result = internal_omp.Player.GetCameraTargetPlayer(this.ptr);
-    return omp.players.get(result.ret);
+    return omp.players.get(PTR(result.ret));
   }
 
   /**
@@ -2257,7 +2257,7 @@ export default class Player {
     }
 
     const result = internal_omp.Player.GetTargetPlayer(this.ptr);
-    return omp.players.get(result.ret);
+    return omp.players.get(PTR(result.ret));
   }
 
   /**

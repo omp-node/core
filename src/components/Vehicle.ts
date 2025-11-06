@@ -1342,7 +1342,7 @@ export default class Vehicle {
     }
 
     const result = internal_omp.Vehicle.GetLastDriver(this.ptr);
-    return omp.players.get(result.ret);
+    return omp.players.get(PTR(result.ret));
   }
 
   /**
@@ -1356,7 +1356,7 @@ export default class Vehicle {
     }
 
     const result = internal_omp.Vehicle.GetDriver(this.ptr);
-    return omp.players.get(result.ret);
+    return omp.players.get(PTR(result.ret));
   }
 
   /**
@@ -1438,7 +1438,7 @@ export default class Vehicle {
     }
 
     const result = internal_omp.Vehicle.GetOccupant(this.ptr, seat);
-    return omp.players.get(result.ret);
+    return omp.players.get(PTR(result.ret));
   }
 
   /**
