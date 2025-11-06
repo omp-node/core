@@ -1,6 +1,6 @@
 {
   "name": "@omp-node/core",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "open.mp core nodejs package. contains constants, type definitions, and initializers",
   "scripts": {
     "build": "rollup -c rollup.config.mjs --environment TARGET:@omp-node/core"

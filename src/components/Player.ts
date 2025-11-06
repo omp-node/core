@@ -1435,13 +1435,13 @@ export default class Player {
    * @returns {Player}
    * @throws Will throw an error if the player is invalid
    */
-  getCameraTargetPlayer(): Player {
+  getCameraTargetPlayer(): Player | undefined {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
 
     const result = internal_omp.Player.GetCameraTargetPlayer(this.ptr);
-    return result.ret;
+    return omp.players.get(result.ret);
   }
 
   /**
@@ -1477,13 +1477,13 @@ export default class Player {
    * @returns {Vehicle}
    * @throws Will throw an error if the player is invalid
    */
-  getCameraTargetVehicle(): Vehicle {
+  getCameraTargetVehicle(): Vehicle | undefined {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
 
     const result = internal_omp.Player.GetCameraTargetVehicle(this.ptr);
-    return result.ret;
+    return omp.vehicles.get(result.ret);
   }
 
   /**
@@ -2223,13 +2223,13 @@ export default class Player {
    * @returns {Vehicle}
    * @throws Will throw an error if the player is invalid
    */
-  getSurfingVehicle(): Vehicle {
+  getSurfingVehicle(): Vehicle | undefined {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
 
     const result = internal_omp.Player.GetSurfingVehicle(this.ptr);
-    return result.ret;
+    return omp.vehicles.get(result.ret);
   }
 
   /**
@@ -2251,13 +2251,13 @@ export default class Player {
    * @returns {Player}
    * @throws Will throw an error if the player is invalid
    */
-  getTargetPlayer(): Player {
+  getTargetPlayer(): Player | undefined {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
 
     const result = internal_omp.Player.GetTargetPlayer(this.ptr);
-    return result.ret;
+    return omp.players.get(result.ret);
   }
 
   /**

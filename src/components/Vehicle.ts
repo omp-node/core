@@ -1,5 +1,5 @@
 import { Player } from "./index";
-import { PTR, internal_omp } from "../globals";
+import { PTR, internal_omp, omp } from "../globals";
 
 /**
  * Vehicle class
@@ -626,13 +626,13 @@ export default class Vehicle {
    * @returns {Vehicle}
    * @throws Will throw an error if the vehicle is invalid
    */
-  getTrailer(): Vehicle {
+  getTrailer(): Vehicle | undefined {
     if (!this.ptr) {
       throw new Error("Vehicle instance is not valid");
     }
 
     const result = internal_omp.Vehicle.GetTrailer(this.ptr);
-    return result.ret;
+    return omp.vehicles.get(result.ret);
   }
 
   /**
@@ -1191,13 +1191,13 @@ export default class Vehicle {
    * @returns {Vehicle}
    * @throws Will throw an error if the vehicle is invalid
    */
-  getCab(): Vehicle {
+  getCab(): Vehicle | undefined {
     if (!this.ptr) {
       throw new Error("Vehicle instance is not valid");
     }
 
     const result = internal_omp.Vehicle.GetCab(this.ptr);
-    return result.ret;
+    return omp.vehicles.get(result.ret);
   }
 
   /**
@@ -1205,13 +1205,13 @@ export default class Vehicle {
    * @returns {Vehicle}
    * @throws Will throw an error if the vehicle is invalid
    */
-  getTower(): Vehicle {
+  getTower(): Vehicle | undefined {
     if (!this.ptr) {
       throw new Error("Vehicle instance is not valid");
     }
 
     const result = internal_omp.Vehicle.GetTower(this.ptr);
-    return result.ret;
+    return omp.vehicles.get(result.ret);
   }
 
   /**
@@ -1336,13 +1336,13 @@ export default class Vehicle {
    * @returns {Player}
    * @throws Will throw an error if the vehicle is invalid
    */
-  getLastDriver(): Player {
+  getLastDriver(): Player | undefined {
     if (!this.ptr) {
       throw new Error("Vehicle instance is not valid");
     }
 
     const result = internal_omp.Vehicle.GetLastDriver(this.ptr);
-    return result.ret;
+    return omp.players.get(result.ret);
   }
 
   /**
@@ -1350,13 +1350,13 @@ export default class Vehicle {
    * @returns {Player}
    * @throws Will throw an error if the vehicle is invalid
    */
-  getDriver(): Player {
+  getDriver(): Player | undefined {
     if (!this.ptr) {
       throw new Error("Vehicle instance is not valid");
     }
 
     const result = internal_omp.Vehicle.GetDriver(this.ptr);
-    return result.ret;
+    return omp.players.get(result.ret);
   }
 
   /**
@@ -1432,13 +1432,13 @@ export default class Vehicle {
    * @returns {Player}
    * @throws Will throw an error if the vehicle is invalid
    */
-  getOccupant(seat: number): Player {
+  getOccupant(seat: number): Player | undefined {
     if (!this.ptr) {
       throw new Error("Vehicle instance is not valid");
     }
 
     const result = internal_omp.Vehicle.GetOccupant(this.ptr, seat);
-    return result.ret;
+    return omp.players.get(result.ret);
   }
 
   /**
