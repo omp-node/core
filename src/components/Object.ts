@@ -641,9 +641,9 @@ export default class ObjectMp {
       parentPlayer: Player | undefined;
     } = {
       ret: result.ret,
-      parentObject: omp.objects.get(result.parentObject),
-      parentVehicle: omp.vehicles.get(result.parentVehicle),
-      parentPlayer: omp.players.get(result.parentPlayer),
+      parentObject: omp.objects.get(PTR(result.parentObject)),
+      parentVehicle: omp.vehicles.get(PTR(result.parentVehicle)),
+      parentPlayer: omp.players.get(PTR(result.parentPlayer)),
     };
 
     return ret;

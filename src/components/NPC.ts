@@ -111,7 +111,7 @@ export default class NPC {
 
   /**
    * @method getPlayer
-   * @returns {Player}
+   * @returns {Player | undefined}
    * @throws Will throw an error if the NPC is invalid
    */
   getPlayer(): Player | undefined {
@@ -1321,7 +1321,7 @@ export default class NPC {
     }
 
     const result = internal_omp.NPC.GetVehicle(this.ptr);
-    return omp.vehicles.get(result.ret);
+    return omp.vehicles.get(PTR(result.ret));
   }
 
   /**
@@ -1349,7 +1349,7 @@ export default class NPC {
     }
 
     const result = internal_omp.NPC.GetEnteringVehicle(this.ptr);
-    return omp.vehicles.get(result.ret);
+    return omp.vehicles.get(PTR(result.ret));
   }
 
   /**
@@ -2090,7 +2090,7 @@ export default class NPC {
     }
 
     const result = internal_omp.NPC.GetSurfingVehicle(this.ptr);
-    return omp.vehicles.get(result.ret);
+    return omp.vehicles.get(PTR(result.ret));
   }
 
   /**
@@ -2123,7 +2123,7 @@ export default class NPC {
     }
 
     const result = internal_omp.NPC.GetSurfingObject(this.ptr);
-    return omp.objects.get(result.ret);
+    return omp.objects.get(PTR(result.ret));
   }
 
   /**
