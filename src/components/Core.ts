@@ -1,3 +1,4 @@
+import { PLAYER_MARKERS_MODE, WEAPON } from "src/enums";
 import { internal_omp } from "../globals";
 
 /**
@@ -299,10 +300,10 @@ export default class Core {
 
   /**
    * @method showPlayerMarkers
-   * @param {number} mode
+   * @param {PLAYER_MARKERS_MODE} mode
    * @returns {boolean}
    */
-  static showPlayerMarkers(mode: number): boolean {
+  static showPlayerMarkers(mode: PLAYER_MARKERS_MODE): boolean {
     const result = internal_omp.Core.ShowPlayerMarkers(mode);
     return result.ret;
   }
@@ -408,7 +409,7 @@ export default class Core {
    * @param {number} weapon
    * @returns {number}
    */
-  static getWeaponSlot(weapon: number): number {
+  static getWeaponSlot(weapon: WEAPON): number {
     const result = internal_omp.Core.GetWeaponSlot(weapon);
     return result.ret;
   }

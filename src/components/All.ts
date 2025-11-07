@@ -1,5 +1,6 @@
 import { Player } from "./index";
 import { internal_omp } from "../globals";
+import { WEAPON } from "src/enums";
 
 /**
  * All class
@@ -46,7 +47,7 @@ export default class All {
   static sendDeathMessage(
     killer: Player,
     killee: Player,
-    weapon: number
+    weapon: WEAPON
   ): boolean {
     const result = internal_omp.All.SendDeathMessage(
       killer.getPtr(),

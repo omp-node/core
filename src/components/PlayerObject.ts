@@ -1,5 +1,6 @@
 import { ObjectMp, Player, Vehicle, omp } from "./index";
 import { PTR, internal_omp } from "../globals";
+import { OBJECT_MATERIAL_SIZE, OBJECT_MATERIAL_TEXT_ALIGN } from "src/enums";
 
 /**
  * PlayerObject class
@@ -523,26 +524,26 @@ export default class PlayerObject {
    * @method setMaterialText
    * @param {string} text
    * @param {number} materialIndex
-   * @param {number} materialSize
+   * @param {OBJECT_MATERIAL_SIZE} materialSize
    * @param {string} fontface
    * @param {number} fontsize
    * @param {boolean} bold
    * @param {number} fontColor
    * @param {number} backgroundColor
-   * @param {number} textalignment
+   * @param {OBJECT_MATERIAL_TEXT_ALIGN} textalignment
    * @returns {boolean}
    * @throws Will throw an error if the playerObject is invalid
    */
   setMaterialText(
     text: string,
     materialIndex: number,
-    materialSize: number,
+    materialSize: OBJECT_MATERIAL_SIZE,
     fontface: string,
     fontsize: number,
     bold: boolean,
     fontColor: number,
     backgroundColor: number,
-    textalignment: number
+    textalignment: OBJECT_MATERIAL_TEXT_ALIGN
   ): boolean {
     if (!this.ptr || !this.player) {
       throw new Error("PlayerObject instance is not valid");
@@ -766,19 +767,19 @@ export default class PlayerObject {
   /**
    * @method getMaterialText
    * @param {number} materialIndex
-   * @returns {{ret: boolean, text: string,materialSize: number,fontFace: string,fontSize: number,bold: boolean,fontColor: number,backgroundColor: number,textAlignment: number}} return object
+   * @returns {{ret: boolean, text: string,materialSize: OBJECT_MATERIAL_SIZE,fontFace: string,fontSize: number,bold: boolean,fontColor: number,backgroundColor: number,textAlignment: OBJECT_MATERIAL_TEXT_ALIGN}} return object
    * @throws Will throw an error if the playerObject is invalid
    */
   getMaterialText(materialIndex: number): {
     ret: boolean;
     text: string;
-    materialSize: number;
+    materialSize: OBJECT_MATERIAL_SIZE;
     fontFace: string;
     fontSize: number;
     bold: boolean;
     fontColor: number;
     backgroundColor: number;
-    textAlignment: number;
+    textAlignment: OBJECT_MATERIAL_TEXT_ALIGN;
   } {
     if (!this.ptr || !this.player) {
       throw new Error("PlayerObject instance is not valid");

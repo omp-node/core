@@ -1,5 +1,6 @@
 import { Player, Vehicle, ObjectMp, omp, PlayerObject } from "./index";
 import { PTR, internal_omp } from "../globals";
+import { FIGHT_STYLE, KEY, SPECIAL_ACTION, WEAPON, WEAPONSKILL } from "src/enums";
 
 /**
  * NPC class
@@ -559,11 +560,11 @@ export default class NPC {
 
   /**
    * @method setWeapon
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @returns {boolean}
    * @throws Will throw an error if the NPC is invalid
    */
-  setWeapon(weapon: number): boolean {
+  setWeapon(weapon: WEAPON): boolean {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -574,10 +575,10 @@ export default class NPC {
 
   /**
    * @method getWeapon
-   * @returns {number}
+   * @returns {WEAPON}
    * @throws Will throw an error if the NPC is invalid
    */
-  getWeapon(): number {
+  getWeapon(): WEAPON {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -738,7 +739,7 @@ export default class NPC {
    * @returns {boolean}
    * @throws Will throw an error if the NPC is invalid
    */
-  setKeys(upAndDown: number, leftAndRight: number, keys: number): boolean {
+  setKeys(upAndDown: number, leftAndRight: number, keys: KEY): boolean {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -768,12 +769,12 @@ export default class NPC {
 
   /**
    * @method setWeaponSkillLevel
-   * @param {number} skill
+   * @param {WEAPONSKILL} skill
    * @param {number} level
    * @returns {boolean}
    * @throws Will throw an error if the NPC is invalid
    */
-  setWeaponSkillLevel(skill: number, level: number): boolean {
+  setWeaponSkillLevel(skill: WEAPONSKILL, level: number): boolean {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -784,11 +785,11 @@ export default class NPC {
 
   /**
    * @method getWeaponSkillLevel
-   * @param {number} skill
+   * @param {WEAPONSKILL} skill
    * @returns {number}
    * @throws Will throw an error if the NPC is invalid
    */
-  getWeaponSkillLevel(skill: number): number {
+  getWeaponSkillLevel(skill: WEAPONSKILL): number {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -847,11 +848,11 @@ export default class NPC {
 
   /**
    * @method setFightingStyle
-   * @param {number} style
+   * @param {FIGHT_STYLE} style
    * @returns {boolean}
    * @throws Will throw an error if the NPC is invalid
    */
-  setFightingStyle(style: number): boolean {
+  setFightingStyle(style: FIGHT_STYLE): boolean {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -862,10 +863,10 @@ export default class NPC {
 
   /**
    * @method getFightingStyle
-   * @returns {number}
+   * @returns {FIGHT_STYLE}
    * @throws Will throw an error if the NPC is invalid
    */
-  getFightingStyle(): number {
+  getFightingStyle(): FIGHT_STYLE {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -876,7 +877,7 @@ export default class NPC {
 
   /**
    * @method shoot
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @param {number} hitId
    * @param {number} hitType
    * @param {number} endX
@@ -891,7 +892,7 @@ export default class NPC {
    * @throws Will throw an error if the NPC is invalid
    */
   shoot(
-    weapon: number,
+    weapon: WEAPON,
     hitId: number,
     hitType: number,
     endX: number,
@@ -1083,12 +1084,12 @@ export default class NPC {
 
   /**
    * @method setWeaponAccuracy
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @param {number} accuracy
    * @returns {boolean}
    * @throws Will throw an error if the NPC is invalid
    */
-  setWeaponAccuracy(weapon: number, accuracy: number): boolean {
+  setWeaponAccuracy(weapon: WEAPON, accuracy: number): boolean {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -1103,11 +1104,11 @@ export default class NPC {
 
   /**
    * @method getWeaponAccuracy
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @returns {number}
    * @throws Will throw an error if the NPC is invalid
    */
-  getWeaponAccuracy(weapon: number): number {
+  getWeaponAccuracy(weapon: WEAPON): number {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -1118,12 +1119,12 @@ export default class NPC {
 
   /**
    * @method setWeaponReloadTime
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @param {number} time
    * @returns {boolean}
    * @throws Will throw an error if the NPC is invalid
    */
-  setWeaponReloadTime(weapon: number, time: number): boolean {
+  setWeaponReloadTime(weapon: WEAPON, time: number): boolean {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -1134,11 +1135,11 @@ export default class NPC {
 
   /**
    * @method getWeaponReloadTime
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @returns {number}
    * @throws Will throw an error if the NPC is invalid
    */
-  getWeaponReloadTime(weapon: number): number {
+  getWeaponReloadTime(weapon: WEAPON): number {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -1149,11 +1150,11 @@ export default class NPC {
 
   /**
    * @method getWeaponActualReloadTime
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @returns {number}
    * @throws Will throw an error if the NPC is invalid
    */
-  getWeaponActualReloadTime(weapon: number): number {
+  getWeaponActualReloadTime(weapon: WEAPON): number {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -1164,12 +1165,12 @@ export default class NPC {
 
   /**
    * @method setWeaponShootTime
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @param {number} time
    * @returns {boolean}
    * @throws Will throw an error if the NPC is invalid
    */
-  setWeaponShootTime(weapon: number, time: number): boolean {
+  setWeaponShootTime(weapon: WEAPON, time: number): boolean {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -1180,11 +1181,11 @@ export default class NPC {
 
   /**
    * @method getWeaponShootTime
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @returns {number}
    * @throws Will throw an error if the NPC is invalid
    */
-  getWeaponShootTime(weapon: number): number {
+  getWeaponShootTime(weapon: WEAPON): number {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -1195,12 +1196,12 @@ export default class NPC {
 
   /**
    * @method setWeaponClipSize
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @param {number} size
    * @returns {boolean}
    * @throws Will throw an error if the NPC is invalid
    */
-  setWeaponClipSize(weapon: number, size: number): boolean {
+  setWeaponClipSize(weapon: WEAPON, size: number): boolean {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -1211,11 +1212,11 @@ export default class NPC {
 
   /**
    * @method getWeaponClipSize
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @returns {number}
    * @throws Will throw an error if the NPC is invalid
    */
-  getWeaponClipSize(weapon: number): number {
+  getWeaponClipSize(weapon: WEAPON): number {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -1226,11 +1227,11 @@ export default class NPC {
 
   /**
    * @method getWeaponActualClipSize
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @returns {number}
    * @throws Will throw an error if the NPC is invalid
    */
-  getWeaponActualClipSize(weapon: number): number {
+  getWeaponActualClipSize(weapon: WEAPON): number {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -1730,11 +1731,11 @@ export default class NPC {
 
   /**
    * @method setSpecialAction
-   * @param {number} action
+   * @param {SPECIAL_ACTION} action
    * @returns {boolean}
    * @throws Will throw an error if the NPC is invalid
    */
-  setSpecialAction(action: number): boolean {
+  setSpecialAction(action: SPECIAL_ACTION): boolean {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
@@ -1745,10 +1746,10 @@ export default class NPC {
 
   /**
    * @method getSpecialAction
-   * @returns {number}
+   * @returns {SPECIAL_ACTION}
    * @throws Will throw an error if the NPC is invalid
    */
-  getSpecialAction(): number {
+  getSpecialAction(): SPECIAL_ACTION {
     if (!this.ptr) {
       throw new Error("NPC instance is not valid");
     }
