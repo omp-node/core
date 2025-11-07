@@ -119,7 +119,7 @@ export default class NPC {
     }
 
     const result = internal_omp.NPC.GetPlayer(this.ptr);
-    return omp.players.get(result.ret);
+    return omp.players.get(PTR(result.ret));
   }
 
   /**
