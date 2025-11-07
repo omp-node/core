@@ -13,6 +13,7 @@ import {
   Vehicle,
   NPC,
 } from "./components";
+import { KEY, WEAPON } from "./enums";
 import { PerPlayerEntityPool, PlayerPool, Pool } from "./pools";
 
 // @ts-ignore
@@ -48,7 +49,7 @@ interface IOMP {
       player: Player,
       actor: Actor,
       amount: number,
-      weapon: number,
+      weapon: WEAPON,
       part: number
     ) => any
   ): void;
@@ -344,7 +345,7 @@ interface IOMP {
       npc: NPC,
       damager: NPC,
       damage: number,
-      weapon: number,
+      weapon: WEAPON,
       bodyPart: number
     ) => any
   ): void;
@@ -363,7 +364,7 @@ interface IOMP {
       npc: NPC,
       damaged: NPC,
       damage: number,
-      weapon: number,
+      weapon: WEAPON,
       bodyPart: number
     ) => any
   ): void;
@@ -439,7 +440,7 @@ interface IOMP {
     eventName: "npcShotMissed",
     callback: (
       npc: NPC,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -459,7 +460,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       player: Player,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -479,7 +480,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       npcTarget: NPC,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -499,7 +500,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       vehicle: Vehicle,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -519,7 +520,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       object: Object,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -539,7 +540,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       playerObject: PlayerObject,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -856,7 +857,7 @@ interface IOMP {
    */
   on(
     eventName: "playerKeyStateChange",
-    callback: (player: Player, newKeys: number, oldKeys: number) => any
+    callback: (player: Player, newKeys: KEY, oldKeys: KEY) => any
   ): void;
 
   /**
@@ -946,7 +947,7 @@ interface IOMP {
     eventName: "playerShotMissed",
     callback: (
       player: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -966,7 +967,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -986,7 +987,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -1006,7 +1007,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -1026,7 +1027,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -1064,7 +1065,7 @@ interface IOMP {
       player: Player,
       from: Player | undefined,
       amount: number,
-      weapon: number,
+      weapon: WEAPON,
       bodypart: number
     ) => any
   ): void;
@@ -1083,7 +1084,7 @@ interface IOMP {
       player: Player,
       to: Player,
       amount: number,
-      weapon: number,
+      weapon: WEAPON,
       bodypart: number
     ) => any
   ): void;
@@ -1389,7 +1390,7 @@ interface IOMP {
       player: Player,
       actor: Actor,
       amount: number,
-      weapon: number,
+      weapon: WEAPON,
       part: number
     ) => any
   ): void;
@@ -1688,7 +1689,7 @@ interface IOMP {
       npc: NPC,
       damager: NPC,
       damage: number,
-      weapon: number,
+      weapon: WEAPON,
       bodyPart: number
     ) => any
   ): void;
@@ -1707,7 +1708,7 @@ interface IOMP {
       npc: NPC,
       damaged: NPC,
       damage: number,
-      weapon: number,
+      weapon: WEAPON,
       bodyPart: number
     ) => any
   ): void;
@@ -1783,7 +1784,7 @@ interface IOMP {
     eventName: "npcShotMissed",
     callback: (
       npc: NPC,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -1803,7 +1804,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       player: Player,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -1823,7 +1824,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       npcTarget: NPC,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -1843,7 +1844,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       vehicle: Vehicle,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -1863,7 +1864,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       object: Object,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -1883,7 +1884,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       playerObject: PlayerObject,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -2209,7 +2210,7 @@ interface IOMP {
    */
   addListener(
     eventName: "playerKeyStateChange",
-    callback: (player: Player, newKeys: number, oldKeys: number) => any
+    callback: (player: Player, newKeys: KEY, oldKeys: KEY) => any
   ): void;
 
   /**
@@ -2302,7 +2303,7 @@ interface IOMP {
     eventName: "playerShotMissed",
     callback: (
       player: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -2322,7 +2323,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -2342,7 +2343,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -2362,7 +2363,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -2382,7 +2383,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -2420,7 +2421,7 @@ interface IOMP {
       player: Player,
       from: Player | undefined,
       amount: number,
-      weapon: number,
+      weapon: WEAPON,
       bodypart: number
     ) => any
   ): void;
@@ -2439,7 +2440,7 @@ interface IOMP {
       player: Player,
       to: Player,
       amount: number,
-      weapon: number,
+      weapon: WEAPON,
       bodypart: number
     ) => any
   ): void;
@@ -2737,7 +2738,7 @@ interface IOMP {
       player: Player,
       actor: Actor,
       amount: number,
-      weapon: number,
+      weapon: WEAPON,
       part: number
     ) => any
   ): void;
@@ -2755,7 +2756,7 @@ interface IOMP {
       player: Player,
       actor: Actor,
       amount: number,
-      weapon: number,
+      weapon: WEAPON,
       part: number
     ) => any
   ): void;
@@ -3031,7 +3032,7 @@ interface IOMP {
       npc: NPC,
       damager: NPC,
       damage: number,
-      weapon: number,
+      weapon: WEAPON,
       bodyPart: number
     ) => any
   ): void;
@@ -3049,7 +3050,7 @@ interface IOMP {
       npc: NPC,
       damaged: NPC,
       damage: number,
-      weapon: number,
+      weapon: WEAPON,
       bodyPart: number
     ) => any
   ): void;
@@ -3119,7 +3120,7 @@ interface IOMP {
     eventName: "npcShotMissed",
     callback: (
       npc: NPC,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -3138,7 +3139,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       player: Player,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -3157,7 +3158,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       npcTarget: NPC,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -3176,7 +3177,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       vehicle: Vehicle,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -3195,7 +3196,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       object: Object,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -3214,7 +3215,7 @@ interface IOMP {
     callback: (
       npc: NPC,
       playerObject: PlayerObject,
-      weapon: number,
+      weapon: WEAPON,
       offsetX: number,
       offsetY: number,
       offsetZ: number
@@ -3519,7 +3520,7 @@ interface IOMP {
    */
   removeListener(
     eventName: "playerKeyStateChange",
-    callback: (player: Player, newKeys: number, oldKeys: number) => any
+    callback: (player: Player, newKeys: KEY, oldKeys: KEY) => any
   ): void;
 
   /**
@@ -3605,7 +3606,7 @@ interface IOMP {
     eventName: "playerShotMissed",
     callback: (
       player: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -3624,7 +3625,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -3643,7 +3644,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -3662,7 +3663,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -3681,7 +3682,7 @@ interface IOMP {
     callback: (
       player: Player,
       target: Player,
-      weapon: number,
+      weapon: WEAPON,
       x: number,
       y: number,
       z: number
@@ -3717,7 +3718,7 @@ interface IOMP {
       player: Player,
       from: Player | undefined,
       amount: number,
-      weapon: number,
+      weapon: WEAPON,
       bodypart: number
     ) => any
   ): void;
@@ -3735,7 +3736,7 @@ interface IOMP {
       player: Player,
       to: Player,
       amount: number,
-      weapon: number,
+      weapon: WEAPON,
       bodypart: number
     ) => any
   ): void;

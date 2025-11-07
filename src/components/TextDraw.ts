@@ -1,5 +1,6 @@
 import { Player } from "./index";
 import { PTR, internal_omp } from "../globals";
+import { TEXT_DRAW_ALIGN, TEXT_DRAW_FONT } from "../enums";
 
 /**
  * TextDraw class
@@ -157,11 +158,11 @@ export default class TextDraw {
 
   /**
    * @method setAlignment
-   * @param {number} alignment
+   * @param {TEXT_DRAW_ALIGN} alignment
    * @returns {boolean}
    * @throws Will throw an error if the textDraw is invalid
    */
-  setAlignment(alignment: number): boolean {
+  setAlignment(alignment: TEXT_DRAW_ALIGN): boolean {
     if (!this.ptr) {
       throw new Error("TextDraw instance is not valid");
     }
@@ -262,11 +263,11 @@ export default class TextDraw {
 
   /**
    * @method setFont
-   * @param {number} font
+   * @param {TEXT_DRAW_FONT} font
    * @returns {boolean}
    * @throws Will throw an error if the textDraw is invalid
    */
-  setFont(font: number): boolean {
+  setFont(font: TEXT_DRAW_FONT): boolean {
     if (!this.ptr) {
       throw new Error("TextDraw instance is not valid");
     }

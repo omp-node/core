@@ -1,3 +1,4 @@
+import { WEAPON } from "../enums";
 import { PTR, internal_omp } from "../globals";
 
 /**
@@ -28,11 +29,11 @@ export default class Class {
    * @param {number} y
    * @param {number} z
    * @param {number} angle
-   * @param {number} weapon1
+   * @param {WEAPON} weapon1
    * @param {number} ammo1
-   * @param {number} weapon2
+   * @param {WEAPON} weapon2
    * @param {number} ammo2
-   * @param {number} weapon3
+   * @param {WEAPON} weapon3
    * @param {number} ammo3
    * @throws Will throw an error if the class creation fails
    */
@@ -43,11 +44,11 @@ export default class Class {
     y: number,
     z: number,
     angle: number,
-    weapon1: number,
+    weapon1: WEAPON,
     ammo1: number,
-    weapon2: number,
+    weapon2: WEAPON,
     ammo2: number,
-    weapon3: number,
+    weapon3: WEAPON,
     ammo3: number
   );
 
@@ -58,11 +59,11 @@ export default class Class {
     y?: number,
     z?: number,
     angle?: number,
-    weapon1?: number,
+    weapon1?: WEAPON,
     ammo1?: number,
-    weapon2?: number,
+    weapon2?: WEAPON,
     ammo2?: number,
-    weapon3?: number,
+    weapon3?: WEAPON,
     ammo3?: number
   ) {
     if (arguments.length < 2) {
@@ -150,7 +151,7 @@ export default class Class {
 
   /**
    * @method getData
-   * @returns {{ret: boolean, teamid: number,skin: number,x: number,y: number,z: number,angle: number,weapon1: number,weapon1_ammo: number,weapon2: number,weapon2_ammo: number,weapon3: number,weapon3_ammo: number}} return object
+   * @returns {{ret: boolean, teamid: number,skin: number,x: number,y: number,z: number,angle: number,weapon1: WEAPON,weapon1_ammo: number,weapon2: WEAPON,weapon2_ammo: number,weapon3: WEAPON,weapon3_ammo: number}} return object
    * @throws Will throw an error if the class is invalid
    */
   getData(): {
@@ -161,11 +162,11 @@ export default class Class {
     y: number;
     z: number;
     angle: number;
-    weapon1: number;
+    weapon1: WEAPON;
     weapon1_ammo: number;
-    weapon2: number;
+    weapon2: WEAPON;
     weapon2_ammo: number;
-    weapon3: number;
+    weapon3: WEAPON;
     weapon3_ammo: number;
   } {
     if (!this.ptr) {
@@ -184,11 +185,11 @@ export default class Class {
    * @param {number} y
    * @param {number} z
    * @param {number} angle
-   * @param {number} weapon1
+   * @param {WEAPON} weapon1
    * @param {number} ammo1
-   * @param {number} weapon2
+   * @param {WEAPON} weapon2
    * @param {number} ammo2
-   * @param {number} weapon3
+   * @param {WEAPON} weapon3
    * @param {number} ammo3
    * @returns {boolean}
    * @throws Will throw an error if the class is invalid
@@ -200,11 +201,11 @@ export default class Class {
     y: number,
     z: number,
     angle: number,
-    weapon1: number,
+    weapon1: WEAPON,
     ammo1: number,
-    weapon2: number,
+    weapon2: WEAPON,
     ammo2: number,
-    weapon3: number,
+    weapon3: WEAPON,
     ammo3: number
   ): boolean {
     if (!this.ptr) {
