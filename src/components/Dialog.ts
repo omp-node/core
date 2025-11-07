@@ -1,6 +1,6 @@
 import { Player } from "./index";
 import { internal_omp } from "../globals";
-import { DIALOG_STYLE } from "src/enums";
+import { DIALOG_STYLE } from "../enums";
 
 /**
  * Dialog class

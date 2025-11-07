@@ -1,6 +1,6 @@
 import { Player } from "./index";
 import { internal_omp } from "../globals";
-import { WEAPON } from "src/enums";
+import { WEAPON } from "../enums";
 
 /**
  * All class

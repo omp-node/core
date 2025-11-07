@@ -1,6 +1,6 @@
 import { Player } from "./index";
 import { PTR, internal_omp } from "../globals";
-import { TEXT_DRAW_ALIGN, TEXT_DRAW_FONT } from "src/enums";
+import { TEXT_DRAW_ALIGN, TEXT_DRAW_FONT } from "../enums";
 
 /**
  * TextDraw class

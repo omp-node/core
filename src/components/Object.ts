@@ -1,6 +1,6 @@
 import { Player, Vehicle, omp } from "./index";
 import { PTR, internal_omp } from "../globals";
-import { OBJECT_MATERIAL_SIZE, OBJECT_MATERIAL_TEXT_ALIGN } from "src/enums";
+import { OBJECT_MATERIAL_SIZE, OBJECT_MATERIAL_TEXT_ALIGN } from "../enums";
 
 /**
  * ObjectMp class

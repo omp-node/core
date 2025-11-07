@@ -1,4 +1,4 @@
-import { WEAPON } from "src/enums";
+import { WEAPON } from "../enums";
 import { PTR, internal_omp } from "../globals";
 
 /**

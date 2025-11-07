@@ -1,6 +1,6 @@
 import { Player } from "./index";
 import { PTR, internal_omp, omp } from "../globals";
-import { CARMODTYPE, VEHICLE_DOOR_STATUS, VEHICLE_LIGHT_STATUS, VEHICLE_MODEL_INFO, VEHICLE_PANEL_STATUS, VEHICLE_TIRE_STATUS } from "src/enums";
+import { CARMODTYPE, VEHICLE_DOOR_STATUS, VEHICLE_LIGHT_STATUS, VEHICLE_MODEL_INFO, VEHICLE_PANEL_STATUS, VEHICLE_TIRE_STATUS } from "../enums";
 
 /**
  * Vehicle class

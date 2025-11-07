@@ -1,6 +1,6 @@
 import { Player } from "./index";
 import { internal_omp } from "../globals";
-import { PLAYER_RECORDING_TYPE } from "src/enums";
+import { PLAYER_RECORDING_TYPE } from "../enums";
 
 /**
  * Recording class

@@ -1,6 +1,6 @@
 import { Actor, Menu, ObjectMp, PlayerObject, Vehicle, omp } from "./index";
 import { PTR, internal_omp } from "../globals";
-import { CAM_MOVE, DIALOG_STYLE, FIGHT_STYLE, FORCE_SYNC, KEY, MAPICON, SPECIAL_ACTION, SPECTATE_MODE, WEAPON, WEAPON_SLOT, WEAPONSKILL } from "src/enums";
+import { CAM_MOVE, DIALOG_STYLE, FIGHT_STYLE, FORCE_SYNC, KEY, MAPICON, SPECIAL_ACTION, SPECTATE_MODE, WEAPON, WEAPON_SLOT, WEAPONSKILL } from "../enums";
 
 /**
  * Player class

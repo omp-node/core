@@ -1,4 +1,4 @@
-import { PLAYER_MARKERS_MODE, WEAPON } from "src/enums";
+import { PLAYER_MARKERS_MODE, WEAPON } from "../enums";
 import { internal_omp } from "../globals";
 
 /**

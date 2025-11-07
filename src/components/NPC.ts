@@ -1,6 +1,6 @@
 import { Player, Vehicle, ObjectMp, omp, PlayerObject } from "./index";
 import { PTR, internal_omp } from "../globals";
-import { FIGHT_STYLE, KEY, SPECIAL_ACTION, WEAPON, WEAPONSKILL } from "src/enums";
+import { FIGHT_STYLE, KEY, SPECIAL_ACTION, WEAPON, WEAPONSKILL } from "../enums";
 
 /**
  * NPC class
