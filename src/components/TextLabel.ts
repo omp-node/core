@@ -380,8 +380,8 @@ export default class TextLabel {
       attached_player: Player | undefined;
     } = {
       ret: result.ret,
-      attached_vehicle: omp.vehicles.get(result.attached_vehicle),
-      attached_player: omp.players.get(result.attached_player),
+      attached_vehicle: omp.vehicles.get(PTR(result.attached_vehicle)),
+      attached_player: omp.players.get(PTR(result.attached_player)),
     };
 
     return ret;

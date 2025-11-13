@@ -632,7 +632,7 @@ export default class Vehicle {
     }
 
     const result = internal_omp.Vehicle.GetTrailer(this.ptr);
-    return omp.vehicles.get(result.ret);
+    return omp.vehicles.get(PTR(result.ret));
   }
 
   /**
@@ -1197,7 +1197,7 @@ export default class Vehicle {
     }
 
     const result = internal_omp.Vehicle.GetCab(this.ptr);
-    return omp.vehicles.get(result.ret);
+    return omp.vehicles.get(PTR(result.ret));
   }
 
   /**
@@ -1211,7 +1211,7 @@ export default class Vehicle {
     }
 
     const result = internal_omp.Vehicle.GetTower(this.ptr);
-    return omp.vehicles.get(result.ret);
+    return omp.vehicles.get(PTR(result.ret));
   }
 
   /**
@@ -1333,7 +1333,7 @@ export default class Vehicle {
 
   /**
    * @method getLastDriver
-   * @returns {Player}
+   * @returns {Player | undefined}
    * @throws Will throw an error if the vehicle is invalid
    */
   getLastDriver(): Player | undefined {
@@ -1347,7 +1347,7 @@ export default class Vehicle {
 
   /**
    * @method getDriver
-   * @returns {Player}
+   * @returns {Player | undefined}
    * @throws Will throw an error if the vehicle is invalid
    */
   getDriver(): Player | undefined {
@@ -1429,7 +1429,7 @@ export default class Vehicle {
   /**
    * @method getOccupant
    * @param {number} seat
-   * @returns {Player}
+   * @returns {Player | undefined}
    * @throws Will throw an error if the vehicle is invalid
    */
   getOccupant(seat: number): Player | undefined {
