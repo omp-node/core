@@ -587,8 +587,8 @@ export default class Vehicle {
     }
 
     const result = internal_omp.Vehicle.AttachTrailer(
-      this.ptr,
-      trailer.getPtr()
+      trailer.getPtr(),
+      this.ptr
     );
     return result.ret;
   }
