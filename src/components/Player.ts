@@ -1,5 +1,6 @@
 import { Actor, Menu, ObjectMp, PlayerObject, Vehicle, omp } from "./index";
 import { PTR, internal_omp } from "../globals";
+import { CAM_MOVE, DIALOG_STYLE, FIGHT_STYLE, FORCE_SYNC, KEY, MAPICON, SPECIAL_ACTION, SPECTATE_MODE, WEAPON, WEAPON_SLOT, WEAPONSKILL } from "../enums";
 
 /**
  * Player class
@@ -62,11 +63,11 @@ export default class Player {
    * @param {number} y
    * @param {number} z
    * @param {number} angle
-   * @param {number} weapon1
+   * @param {WEAPON} weapon1
    * @param {number} ammo1
-   * @param {number} weapon2
+   * @param {WEAPON} weapon2
    * @param {number} ammo2
-   * @param {number} weapon3
+   * @param {WEAPON} weapon3
    * @param {number} ammo3
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
@@ -78,11 +79,11 @@ export default class Player {
     y: number,
     z: number,
     angle: number,
-    weapon1: number,
+    weapon1: WEAPON,
     ammo1: number,
-    weapon2: number,
+    weapon2: WEAPON,
     ammo2: number,
-    weapon3: number,
+    weapon3: WEAPON,
     ammo3: number
   ): boolean {
     if (!this.ptr) {
@@ -109,7 +110,7 @@ export default class Player {
 
   /**
    * @method getSpawnInfo
-   * @returns {{ret: boolean, team: number,skin: number,x: number,y: number,z: number,angle: number,weapon1: number,ammo1: number,weapon2: number,ammo2: number,weapon3: number,ammo3: number}} return object
+   * @returns {{ret: boolean, team: number,skin: number,x: number,y: number,z: number,angle: number,weapon1: WEAPON,ammo1: number,weapon2: WEAPON,ammo2: number,weapon3: WEAPON,ammo3: number}} return object
    * @throws Will throw an error if the player is invalid
    */
   getSpawnInfo(): {
@@ -120,11 +121,11 @@ export default class Player {
     y: number;
     z: number;
     angle: number;
-    weapon1: number;
+    weapon1: WEAPON;
     ammo1: number;
-    weapon2: number;
+    weapon2: WEAPON;
     ammo2: number;
-    weapon3: number;
+    weapon3: WEAPON;
     ammo3: number;
   } {
     if (!this.ptr) {
@@ -311,13 +312,13 @@ export default class Player {
 
   /**
    * @method getDialogData
-   * @returns {{ret: boolean, dialogid: number,style: number,title: string,body: string,button1: string,button2: string}} return object
+   * @returns {{ret: boolean, dialogid: number,style: DIALOG_STYLE,title: string,body: string,button1: string,button2: string}} return object
    * @throws Will throw an error if the player is invalid
    */
   getDialogData(): {
     ret: boolean;
     dialogid: number;
-    style: number;
+    style: DIALOG_STYLE;
     title: string;
     body: string;
     button1: string;
@@ -531,11 +532,11 @@ export default class Player {
    * @param {number} x
    * @param {number} y
    * @param {number} z
-   * @param {number} cutType
+   * @param {CAM_MOVE} cutType
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  setCameraLookAt(x: number, y: number, z: number, cutType: number): boolean {
+  setCameraLookAt(x: number, y: number, z: number, cutType: CAM_MOVE): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -863,12 +864,12 @@ export default class Player {
 
   /**
    * @method giveWeapon
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @param {number} ammo
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  giveWeapon(weapon: number, ammo: number): boolean {
+  giveWeapon(weapon: WEAPON, ammo: number): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -879,11 +880,11 @@ export default class Player {
 
   /**
    * @method removeWeapon
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  removeWeapon(weapon: number): boolean {
+  removeWeapon(weapon: WEAPON): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -1080,11 +1081,11 @@ export default class Player {
 
   /**
    * @method setFightingStyle
-   * @param {number} style
+   * @param {FIGHT_STYLE} style
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  setFightingStyle(style: number): boolean {
+  setFightingStyle(style: FIGHT_STYLE): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -1095,10 +1096,10 @@ export default class Player {
 
   /**
    * @method getFightingStyle
-   * @returns {number}
+   * @returns {FIGHT_STYLE}
    * @throws Will throw an error if the player is invalid
    */
-  getFightingStyle(): number {
+  getFightingStyle(): FIGHT_STYLE {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -1278,11 +1279,11 @@ export default class Player {
   /**
    * @method spectatePlayer
    * @param {Player} target
-   * @param {number} mode
+   * @param {SPECTATE_MODE} mode
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  spectatePlayer(target: Player, mode: number): boolean {
+  spectatePlayer(target: Player, mode: SPECTATE_MODE): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -1298,11 +1299,11 @@ export default class Player {
   /**
    * @method spectateVehicle
    * @param {Player} target
-   * @param {number} mode
+   * @param {SPECTATE_MODE} mode
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  spectateVehicle(target: Player, mode: number): boolean {
+  spectateVehicle(target: Player, mode: SPECTATE_MODE): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -1395,11 +1396,11 @@ export default class Player {
 
   /**
    * @method clearAnimations
-   * @param {number} syncType
+   * @param {FORCE_SYNC} syncType
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  clearAnimations(syncType: number): boolean {
+  clearAnimations(syncType: FORCE_SYNC): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -1589,7 +1590,7 @@ export default class Player {
    * @param {number} z
    * @param {number} type
    * @param {number} color
-   * @param {number} style
+   * @param {MAPICON} style
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
@@ -1600,7 +1601,7 @@ export default class Player {
     z: number,
     type: number,
     color: number,
-    style: number
+    style: MAPICON
   ): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
@@ -1651,11 +1652,11 @@ export default class Player {
 
   /**
    * @method setArmedWeapon
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  setArmedWeapon(weapon: number): boolean {
+  setArmedWeapon(weapon: WEAPON): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -1712,12 +1713,12 @@ export default class Player {
 
   /**
    * @method setSkillLevel
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @param {number} level
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  setSkillLevel(weapon: number, level: number): boolean {
+  setSkillLevel(weapon: WEAPON, level: number): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -1728,11 +1729,11 @@ export default class Player {
 
   /**
    * @method setSpecialAction
-   * @param {number} action
+   * @param {SPECIAL_ACTION} action
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  setSpecialAction(action: number): boolean {
+  setSpecialAction(action: SPECIAL_ACTION): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -1801,7 +1802,7 @@ export default class Player {
    * @param {boolean} lockY
    * @param {boolean} freeze
    * @param {number} time
-   * @param {number} sync
+   * @param {FORCE_SYNC} sync
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
@@ -1814,7 +1815,7 @@ export default class Player {
     lockY: boolean,
     freeze: boolean,
     time: number,
-    sync: number
+    sync: FORCE_SYNC
   ): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
@@ -1953,10 +1954,10 @@ export default class Player {
 
   /**
    * @method getSpecialAction
-   * @returns {number}
+   * @returns {SPECIAL_ACTION}
    * @throws Will throw an error if the player is invalid
    */
-  getSpecialAction(): number {
+  getSpecialAction(): SPECIAL_ACTION {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -1995,13 +1996,13 @@ export default class Player {
 
   /**
    * @method getWeaponData
-   * @param {number} slot
-   * @returns {{ret: boolean, weaponid: number,ammo: number}} return object
+   * @param {WEAPON_SLOT} slot
+   * @returns {{ret: boolean, weaponid: WEAPON,ammo: number}} return object
    * @throws Will throw an error if the player is invalid
    */
-  getWeaponData(slot: number): {
+  getWeaponData(slot: WEAPON_SLOT): {
     ret: boolean;
-    weaponid: number;
+    weaponid: WEAPON;
     ammo: number;
   } {
     if (!this.ptr) {
@@ -2076,7 +2077,7 @@ export default class Player {
    * @param {number} to_y
    * @param {number} to_z
    * @param {number} time
-   * @param {number} cut
+   * @param {CAM_MOVE} cut
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
@@ -2088,7 +2089,7 @@ export default class Player {
     to_y: number,
     to_z: number,
     time: number,
-    cut: number
+    cut: CAM_MOVE
   ): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
@@ -2206,10 +2207,10 @@ export default class Player {
 
   /**
    * @method getKeys
-   * @returns {{ret: boolean, keys: number,updown: number,leftright: number}} return object
+   * @returns {{ret: boolean, keys: KEY,updown: number,leftright: number}} return object
    * @throws Will throw an error if the player is invalid
    */
-  getKeys(): { ret: boolean; keys: number; updown: number; leftright: number } {
+  getKeys(): { ret: boolean; keys: KEY; updown: number; leftright: number } {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -2787,11 +2788,11 @@ export default class Player {
    * @method sendDeathMessage
    * @param {Player} killer
    * @param {Player} killee
-   * @param {number} weapon
+   * @param {WEAPON} weapon
    * @returns {boolean}
    * @throws Will throw an error if the player is invalid
    */
-  sendDeathMessage(killer: Player, killee: Player, weapon: number): boolean {
+  sendDeathMessage(killer: Player, killee: Player, weapon: WEAPON): boolean {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }
@@ -2841,11 +2842,11 @@ export default class Player {
 
   /**
    * @method getSkillLevel
-   * @param {number} skill
+   * @param {WEAPONSKILL} skill
    * @returns {number}
    * @throws Will throw an error if the player is invalid
    */
-  getSkillLevel(skill: number): number {
+  getSkillLevel(skill: WEAPONSKILL): number {
     if (!this.ptr) {
       throw new Error("Player instance is not valid");
     }

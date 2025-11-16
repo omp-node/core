@@ -1,5 +1,6 @@
 import { Player } from "./index";
 import { PTR, internal_omp, omp } from "../globals";
+import { CARMODTYPE, VEHICLE_DOOR_STATUS, VEHICLE_LIGHT_STATUS, VEHICLE_MODEL_INFO, VEHICLE_PANEL_STATUS, VEHICLE_TIRE_STATUS } from "../enums";
 
 /**
  * Vehicle class
@@ -666,11 +667,11 @@ export default class Vehicle {
 
   /**
    * @method getComponentInSlot
-   * @param {number} slot
+   * @param {CARMODTYPE} slot
    * @returns {number}
    * @throws Will throw an error if the vehicle is invalid
    */
-  getComponentInSlot(slot: number): number {
+  getComponentInSlot(slot: CARMODTYPE): number {
     if (!this.ptr) {
       throw new Error("Vehicle instance is not valid");
     }
@@ -795,15 +796,15 @@ export default class Vehicle {
 
   /**
    * @method getDamageStatus
-   * @returns {{ret: boolean, panels: number,doors: number,lights: number,tires: number}} return object
+   * @returns {{ret: boolean, panels: VEHICLE_PANEL_STATUS,doors: VEHICLE_DOOR_STATUS,lights: VEHICLE_LIGHT_STATUS,tires: VEHICLE_TIRE_STATUS}} return object
    * @throws Will throw an error if the vehicle is invalid
    */
   getDamageStatus(): {
     ret: boolean;
-    panels: number;
-    doors: number;
-    lights: number;
-    tires: number;
+    panels: VEHICLE_PANEL_STATUS;
+    doors: VEHICLE_DOOR_STATUS;
+    lights: VEHICLE_LIGHT_STATUS;
+    tires: VEHICLE_TIRE_STATUS;
   } {
     if (!this.ptr) {
       throw new Error("Vehicle instance is not valid");
@@ -815,18 +816,18 @@ export default class Vehicle {
 
   /**
    * @method updateDamageStatus
-   * @param {number} panels
-   * @param {number} doors
-   * @param {number} lights
-   * @param {number} tires
+   * @param {VEHICLE_PANEL_STATUS} panels
+   * @param {VEHICLE_DOOR_STATUS} doors
+   * @param {VEHICLE_LIGHT_STATUS} lights
+   * @param {VEHICLE_TIRE_STATUS} tires
    * @returns {boolean}
    * @throws Will throw an error if the vehicle is invalid
    */
   updateDamageStatus(
-    panels: number,
-    doors: number,
-    lights: number,
-    tires: number
+    panels: VEHICLE_PANEL_STATUS,
+    doors: VEHICLE_DOOR_STATUS,
+    lights: VEHICLE_LIGHT_STATUS,
+    tires: VEHICLE_TIRE_STATUS
   ): boolean {
     if (!this.ptr) {
       throw new Error("Vehicle instance is not valid");
@@ -845,13 +846,13 @@ export default class Vehicle {
   /**
    * @method getModelInfo
    * @param {number} vehiclemodel
-   * @param {number} infotype
+   * @param {VEHICLE_MODEL_INFO} infotype
    * @returns {{ret: boolean, x: number,y: number,z: number}} return object
    * @throws Will throw an error if the vehicle is invalid
    */
   static getModelInfo(
     vehiclemodel: number,
-    infotype: number
+    infotype: VEHICLE_MODEL_INFO
   ): {
     ret: boolean;
     x: number;
