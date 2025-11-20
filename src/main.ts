@@ -24,6 +24,7 @@ import Recording from "./components/Recording";
 import { omp } from "./globals";
 
 export * from "./constants";
+export * from "./types";
 
 export {
   ObjectMp,
